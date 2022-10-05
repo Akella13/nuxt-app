@@ -1,13 +1,17 @@
 {
+  "name": "nuxt-app",
   "private": true,
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "test": "vitest"
   },
   "devDependencies": {
-    "nuxt": "3.0.0-rc.10"
+    "@nuxt/test-utils-edge": "^3.0.0-rc.12-27746784.92ff066",
+    "nuxt": "3.0.0-rc.10",
+    "vitest": "^0.23.4"
   }
 }
