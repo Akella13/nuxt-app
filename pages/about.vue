@@ -1,12 +1,15 @@
 <template>
   <section>
-    <p>This page will be displayed at the /about route.</p>
-    <NuxtExampleLayout example="server/routes">
-      <p>Fetched from <pre>/api/mountain</pre>: {{ mountain }}</p>
-    </NuxtExampleLayout>
+    <article>Fetched from
+      <pre>/api/mountain</pre>:
+      <code>{{ mountain }}</code>
+    </article>
   </section>
 </template>
 
 <script setup>
+  definePageMeta({
+    title: 'About'
+  })
   const { data: mountain } = await useFetch('/api/mountain')
 </script>
