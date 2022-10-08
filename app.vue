@@ -8,8 +8,9 @@
   </div>
 </template>
 
-<script setup>
-  const pageTitle = useRoute().meta.title
+<script setup lang="ts">
+  /** Current route page title */
+  const pageTitle = useRoute().meta.title as string
 
   useHead({
     title: 'Nuxt-App',
