@@ -9,6 +9,9 @@
         </button>
       </li>
     </ul>
+    <h3 v-if="rollHistory.length > 0">
+      Your last roll: {{ rollHistory[rollHistory.length - 1] }}
+    </h3>
   </section>
 </template>
 
@@ -19,11 +22,14 @@
 
   /** Array of all possible dice */
   const diceArr = useState<number[]>('diceArr', () => [4, 6, 8, 10, 12, 20])
+  /** Array of dice roll results */
+  const rollHistory = useState<number[]>('rollHistory', () => [])
 
   /** Random result of a die roll */
-  const RollDie = (sides: number) => Math.round(Math.random()*(sides - 1)) + 1
+  const rollDie = (sides: number) => Math.round(Math.random()*(sides - 1)) + 1
 
+  /** Handle specific die roll button */
   const DieButtonHandler = (die: number) => {
-    console.log(RollDie(die))
+    rollHistory.value.push(rollDie(die))
   }
 </script>
