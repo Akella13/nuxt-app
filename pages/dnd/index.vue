@@ -20,14 +20,14 @@
 
 <script setup lang="ts">
   import type { die, dieSet, roll } from './types'
-  import gsap from 'gsap'
+  import { rollDie } from '~/utils/index'
 
   definePageMeta({
     title: 'Dice roller'
   })
 
   /** Pull of all possible dice */
-  const diceArr = useState<dieSet>('diceArr', () => new Set([4, 6, 8, 10, 12, 20]))
+  const diceArr: dieSet = new Set([4, 6, 8, 10, 12, 20])
   /** Array of dice roll results */
   const rollHistory = useState<roll[]>('rollHistory', () => [])
   /** Last roll object */
@@ -43,17 +43,7 @@
     return obj
   })
 
-  // TODO: extract to composable
-  const tweened = reactive({
-    number: 0
-  })
-
-  watch(lastRoll, n => {
-    gsap.to(tweened, { duration: 0.5, number: Number(n.result) || 0 })
-  })
-
-  /** Random result of a die roll */
-  const rollDie = (sides: die) => Math.round(Math.random()*(sides - 1)) + 1
+  const tweened = useTweened(lastRoll)
 
   /** Handle specific die roll button */
   const DieButtonHandler = (die: die) => {
