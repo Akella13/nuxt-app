@@ -10,7 +10,7 @@
       </li>
     </ul>
     <div v-if="rollHistory.length > 0">
-      <h3>Your last roll: {{ lastRoll.result }}</h3>
+      <h3>Your last roll: {{ tweened.number.toFixed(0) }}</h3>
       <h4 v-if="lastRoll.die === 20 && (lastRoll.result === 1 || lastRoll.result === 20)">
         Critical {{ lastRoll.result === 1 ? 'fail' : 'success' }}!
       </h4>
@@ -19,7 +19,8 @@
 </template>
 
 <script setup lang="ts">
-  import type { die, dieSet, roll } from './types';
+  import type { die, dieSet, roll } from './types'
+  import gsap from 'gsap'
 
   definePageMeta({
     title: 'Dice roller'
@@ -40,6 +41,15 @@
       } 
     }
     return obj
+  })
+
+  // TODO: extract to composable
+  const tweened = reactive({
+    number: 0
+  })
+
+  watch(lastRoll, n => {
+    gsap.to(tweened, { duration: 0.5, number: Number(n.result) || 0 })
   })
 
   /** Random result of a die roll */
