@@ -1,6 +1,18 @@
 <template>
   <section>
     <h2>Dice roller</h2>
+    <fieldset>
+      <legend>Select Modifier:</legend>
+      <ul>
+        <li v-for="char in chars">
+          <label>
+            <input type="radio" :value="char.value" name="char" @change="CharSelectHandler(char.value)">
+            {{ char.name }}
+          </label>
+        </li>
+      </ul>
+      <h3> Your modifier: {{ modifier }}</h3>
+    </fieldset>
     <h3>Choose your die:</h3>
     <ul>
       <li v-for="die in diceArr">
@@ -52,4 +64,39 @@
       result: rollDie(die),
     })
   }
+
+  /** Array of characteristics and their values */
+  const chars = useState('chars', () => [
+    {
+      name: 'Strength',
+      value: 18,
+    },
+    {
+      name: 'Dexterity',
+      value: 12,
+    },
+    {
+      name: 'Constitution',
+      value: 14,
+    },
+    {
+      name: 'Intelligence',
+      value: 8,
+    },
+    {
+      name: 'Wisdom',
+      value: 12,
+    },
+    {
+      name: 'Charisma',
+      value: 10,
+    },
+  ])
+
+  const modifier = ref(0)
+
+  const CharSelectHandler = (x) => {
+    modifier.value = x
+  }
+
 </script>
