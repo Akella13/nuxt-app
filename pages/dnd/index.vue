@@ -4,14 +4,19 @@
     <fieldset>
       <legend>Select Modifier:</legend>
       <ul>
-        <li v-for="char in chars">
+        <li v-for="stat in stats">
           <label>
-            <input type="radio" :value="char.value" name="char" @change="CharSelectHandler(char.value)">
-            {{ char.name }}
+            <input type="radio"
+              :value="stat.value"
+              name="stat"
+              @change="CharSelectHandler(stat.value)"
+            >
+            {{ stat.value }}
+            {{ stat.name }}
           </label>
         </li>
       </ul>
-      <h3> Your modifier: {{ modifier }}</h3>
+      <h3> Your modifier: {{ mod }}</h3>
     </fieldset>
     <h3>Choose your die:</h3>
     <ul>
@@ -32,7 +37,7 @@
 
 <script setup lang="ts">
   import type { die, dieSet, roll } from './types'
-  import { rollDie } from '~/utils/index'
+  import { rollDie, calcMod } from '~/utils/index'
 
   definePageMeta({
     title: 'Dice roller'
@@ -66,7 +71,7 @@
   }
 
   /** Array of characteristics and their values */
-  const chars = useState('chars', () => [
+  const stats = useState('stats', () => [
     {
       name: 'Strength',
       value: 18,
@@ -93,10 +98,11 @@
     },
   ])
 
-  const modifier = ref(0)
+  const mod = ref(0)
 
   const CharSelectHandler = (x) => {
-    modifier.value = x
+    // change mod depending on stat
+    mod.value = calcMod(x)
   }
 
 </script>
