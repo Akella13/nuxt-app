@@ -16,7 +16,7 @@
           </label>
         </li>
       </ul>
-      <h3> Your modifier: {{ mod }}</h3>
+      <h3>Your modifier: {{ mod }}</h3>
     </fieldset>
     <h3>Choose your die:</h3>
     <ul>
@@ -27,9 +27,14 @@
       </li>
     </ul>
     <div v-if="rollHistory.length > 0">
-      <h3>Your last roll: {{ tweened.number.toFixed(0) }}</h3>
-      <h4 v-if="lastRoll.die === 20 && (lastRoll.result === 1 || lastRoll.result === 20)">
-        Critical {{ lastRoll.result === 1 ? 'fail' : 'success' }}!
+      <h3>
+        Your last roll:
+        {{ tweenedNumber }} +
+        {{ lastRoll.mod }} =
+        {{ tweenedNumber + lastRoll.mod }}
+      </h3>
+      <h4 v-if="lastRoll.die === 20 && (lastRoll.natural === 1 || lastRoll.natural === 20)">
+        Critical {{ lastRoll.natural === 1 ? 'fail' : 'success' }}!
       </h4>
     </div>
   </section>
@@ -51,22 +56,27 @@
   const lastRoll = computed(() => {
     const obj = rollHistory.value[rollHistory.value.length - 1]
     // if die is d20 and the result is either 1 or 20
-    if (obj?.die === 20 && (obj?.result === 1 || obj?.result === 20)) {
+    if (obj?.die === 20 && (obj?.natural === 1 || obj?.natural === 20)) {
       return {
         ...obj,
-        critical: obj?.result === 1 ? 'fail' : 'success',
+        critical: obj?.natural === 1 ? 'fail' : 'success',
       } 
     }
     return obj
   })
 
   const tweened = useTweened(lastRoll)
+  /** Tweened value to display */
+  const tweenedNumber = computed(() => Math.round(tweened.number))
 
   /** Handle specific die roll button */
   const DieButtonHandler = (die: die) => {
+    const natural = rollDie(die)
     rollHistory.value.push({
       die,
-      result: rollDie(die),
+      natural,
+      mod: mod.value,
+      dirty: natural + mod.value,
     })
   }
 
@@ -100,7 +110,7 @@
 
   const mod = ref(0)
 
-  const CharSelectHandler = (x) => {
+  const CharSelectHandler = (x: number) => {
     // change mod depending on stat
     mod.value = calcMod(x)
   }

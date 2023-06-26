@@ -7,7 +7,7 @@ export const useTweened = toAnimate => {
   watch(toAnimate, n => {
     gsap.to(tweened, {
       duration: 0.5,
-      number: Number(n.result) || 0,
+      number: Number(n.natural) || 0,
     })
   })
 
