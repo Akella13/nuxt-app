@@ -18,25 +18,46 @@
       </ul>
       <h3>Your modifier: {{ mod }}</h3>
     </fieldset>
-    <h3>Choose your die:</h3>
+    <h3>Choose your dice:</h3>
     <ul>
-      <li v-for="die in diceArr">
-        <button @click="DieButtonHandler(die)">
-          d{{ die }}
+      <li v-for="dice in diceArr">
+        <button @click="DiceButtonHandler(dice)">
+          d{{ dice }}
         </button>
       </li>
     </ul>
-    <div v-if="rollHistory.length > 0">
-      <h3>
-        Your last roll:
-        {{ tweenedNumber }} +
-        {{ lastRoll.mod }} =
-        {{ tweenedNumber + lastRoll.mod }}
-      </h3>
-      <h4 v-if="lastRoll.die === 20 && (lastRoll.natural === 1 || lastRoll.natural === 20)">
-        Critical {{ lastRoll.natural === 1 ? 'fail' : 'success' }}!
-      </h4>
-    </div>
+    <article v-if="rollHistory.length > 0">
+      <div>
+        <h3>
+          Your last roll:
+          {{ tweenedNumber }} +
+          {{ lastRoll.mod }} =
+          {{ tweenedNumber + lastRoll.mod }}
+        </h3>
+        <h4 v-if="lastRoll.dice === 20 && (lastRoll.natural === 1 || lastRoll.natural === 20)">
+          Critical {{ lastRoll.natural === 1 ? 'fail' : 'success' }}!
+        </h4>
+      </div>
+      <details>
+        <summary>Roll log</summary>
+        <table>
+          <thead>
+            <th>Dice</th>
+            <th>Natural</th>
+            <th>Modifier</th>
+            <th>Total</th>
+          </thead>
+          <tbody>
+            <tr v-for="(roll, index) in [...rollHistory].reverse()" :key="index">
+              <td>d{{ roll.dice }}</td>
+              <td>{{ roll.natural }}</td>
+              <td>{{ roll.mod }}</td>
+              <td>{{ roll.dirty }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </details>
+    </article>
   </section>
 </template>
 
@@ -54,9 +75,9 @@
   const rollHistory = useState<roll[]>('rollHistory', () => [])
   /** Last roll object */
   const lastRoll = computed(() => {
-    const obj = rollHistory.value[rollHistory.value.length - 1]
+    const obj = rollHistory.value.at(-1)
     // if die is d20 and the result is either 1 or 20
-    if (obj?.die === 20 && (obj?.natural === 1 || obj?.natural === 20)) {
+    if (obj?.dice === 20 && (obj?.natural === 1 || obj?.natural === 20)) {
       return {
         ...obj,
         critical: obj?.natural === 1 ? 'fail' : 'success',
@@ -70,10 +91,10 @@
   const tweenedNumber = computed(() => Math.round(tweened.number))
 
   /** Handle specific die roll button */
-  const DieButtonHandler = (die: die) => {
-    const natural = rollDie(die)
+  const DiceButtonHandler = (dice: die) => {
+    const natural = rollDie(dice)
     rollHistory.value.push({
-      die,
+      dice,
       natural,
       mod: mod.value,
       dirty: natural + mod.value,
@@ -114,5 +135,4 @@
     // change mod depending on stat
     mod.value = calcMod(x)
   }
-
 </script>
