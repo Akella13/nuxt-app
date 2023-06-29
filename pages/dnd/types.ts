@@ -4,6 +4,9 @@ export type die = 4 | 6 | 8 | 10 | 12 | 20
 /** All the die possible */
 export type dieSet = Set<die>
 
+/** Critical value */
+export type crit = 'fail' | 'success'
+
 /** Result of rolling a single die */
 export interface roll {
   /** Number of sides on a dice */
@@ -14,4 +17,6 @@ export interface roll {
   mod: number
   /** Total result (with modifier) */
   dirty: number
+  /** Critical failure or success */
+  critical?: crit
 }

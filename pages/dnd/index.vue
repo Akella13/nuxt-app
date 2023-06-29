@@ -75,7 +75,7 @@
 </template>
 
 <script setup lang="ts">
-  import type { die, dieSet, roll } from './types'
+  import type { crit, die, dieSet, roll } from './types'
   import { rollDie, calcMod } from '~/utils/index'
 
   definePageMeta({
@@ -86,18 +86,8 @@
   const diceArr: dieSet = new Set([4, 6, 8, 10, 12, 20])
   /** Array of dice roll results */
   const rollHistory = useState<roll[][]>('rollHistory', () => [])
-  // /** Last roll object */
-  // const lastRoll = computed(() => {
-  //   const obj = rollHistory.value.at(-1)
-  //   // if die is d20 and the result is either 1 or 20
-  //   if (obj?.dice === 20 && (obj?.natural === 1 || obj?.natural === 20)) {
-  //     return {
-  //       ...obj,
-  //       critical: obj?.natural === 1 ? 'fail' : 'success',
-  //     } 
-  //   }
-  //   return obj
-  // })
+  /** Last roll result */
+  const lastRoll = computed(() => rollHistory.value.at(-1))
 
   // const tweened = useTweened(lastRoll)
   // /** Tweened value to display */
@@ -112,11 +102,18 @@
     const result = hand.value.map(dice => {
       /** Natural result of a single roll */
       const natural = rollDie(dice)
+      /** Critical result of a single d20 roll */
+      let critical: crit
+      if (dice === 20 && (natural === 1 || natural === 20)) {
+        // mutate roll: add crit
+        critical = natural === 1 ? 'fail' : 'success'
+      }
       return {
         dice,
         natural,
         mod: mod.value,
         dirty: natural + mod.value,
+        ...(critical && { critical }),
       }
     })
     rollHistory.value.push(result)
