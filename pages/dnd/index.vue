@@ -18,15 +18,28 @@
       </ul>
       <h3>Your modifier: {{ mod }}</h3>
     </fieldset>
-    <h3>Choose your dice:</h3>
-    <ul>
-      <li v-for="dice in diceArr">
-        <button @click="DiceButtonHandler(dice)">
-          d{{ dice }}
-        </button>
-      </li>
-    </ul>
-    <article v-if="rollHistory.length > 0">
+
+    <article>
+      <h3>Choose your dice:</h3>
+      <ul>
+        <li v-for="dice in diceArr">
+          <button @click="hand.push(dice)">
+            d{{ dice }}
+          </button>
+        </li>
+      </ul>
+      <div v-if="hand.length > 0">
+        <h4>Hand:</h4>
+        <ul>
+          <li v-for="dice in hand">
+            d{{ dice }}
+          </li>
+        </ul>
+        <button @click="RollHand">Roll it!</button>
+      </div>
+    </article>
+
+    <!-- <article v-if="rollHistory.length > 0">
       <div>
         <h3>
           Your last roll:
@@ -57,7 +70,7 @@
           </tbody>
         </table>
       </details>
-    </article>
+    </article> -->
   </section>
 </template>
 
@@ -72,33 +85,41 @@
   /** Pull of all possible dice */
   const diceArr: dieSet = new Set([4, 6, 8, 10, 12, 20])
   /** Array of dice roll results */
-  const rollHistory = useState<roll[]>('rollHistory', () => [])
-  /** Last roll object */
-  const lastRoll = computed(() => {
-    const obj = rollHistory.value.at(-1)
-    // if die is d20 and the result is either 1 or 20
-    if (obj?.dice === 20 && (obj?.natural === 1 || obj?.natural === 20)) {
+  const rollHistory = useState<roll[][]>('rollHistory', () => [])
+  // /** Last roll object */
+  // const lastRoll = computed(() => {
+  //   const obj = rollHistory.value.at(-1)
+  //   // if die is d20 and the result is either 1 or 20
+  //   if (obj?.dice === 20 && (obj?.natural === 1 || obj?.natural === 20)) {
+  //     return {
+  //       ...obj,
+  //       critical: obj?.natural === 1 ? 'fail' : 'success',
+  //     } 
+  //   }
+  //   return obj
+  // })
+
+  // const tweened = useTweened(lastRoll)
+  // /** Tweened value to display */
+  // const tweenedNumber = computed(() => Math.round(tweened.number))
+
+  /** All die picked by hand */
+  const hand = useState<die[]>('hand', () => [])
+
+  /** Roll all die picked by hand */
+  const RollHand = () => {
+    /** Result of rolling all die */
+    const result = hand.value.map(dice => {
+      /** Natural result of a single roll */
+      const natural = rollDie(dice)
       return {
-        ...obj,
-        critical: obj?.natural === 1 ? 'fail' : 'success',
-      } 
-    }
-    return obj
-  })
-
-  const tweened = useTweened(lastRoll)
-  /** Tweened value to display */
-  const tweenedNumber = computed(() => Math.round(tweened.number))
-
-  /** Handle specific die roll button */
-  const DiceButtonHandler = (dice: die) => {
-    const natural = rollDie(dice)
-    rollHistory.value.push({
-      dice,
-      natural,
-      mod: mod.value,
-      dirty: natural + mod.value,
+        dice,
+        natural,
+        mod: mod.value,
+        dirty: natural + mod.value,
+      }
     })
+    rollHistory.value.push(result)
   }
 
   /** Array of characteristics and their values */
