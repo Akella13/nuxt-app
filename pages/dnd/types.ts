@@ -13,10 +13,17 @@ export interface roll {
   dice: die
   /** Natural result of a roll */
   natural: number
-  /** Modifier */
-  mod: number
-  /** Total result (with modifier) */
-  dirty: number
   /** Critical failure or success */
   critical?: crit
+}
+
+export interface rollMulti {
+  /** Result of rolling a full hand of die */
+  rolls: roll[]
+  /** Modifier */
+  mod: number
+  /** Total natural result */
+  totalNat: number
+  /** Total result with modifier */
+  totalDirty: number
 }

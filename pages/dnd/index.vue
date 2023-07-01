@@ -93,7 +93,7 @@
 </template>
 
 <script setup lang="ts">
-  import type { crit, die, dieSet, roll } from './types'
+  import type { crit, die, dieSet, roll , rollMulti} from './types'
   import { rollDie, calcMod } from '~/utils/index'
 
   definePageMeta({
@@ -103,7 +103,7 @@
   /** Pull of all possible dice */
   const diceArr: dieSet = new Set([4, 6, 8, 10, 12, 20])
   /** Array of dice roll results */
-  const rollHistory = useState/* <roll[][]> */('rollHistory', () => [])
+  const rollHistory = useState<rollMulti[]>('rollHistory', () => [])
   /** Last roll result */
   const lastRoll = computed(() => rollHistory.value.at(-1))
 
@@ -119,7 +119,7 @@
     /** Sum of natural rolls by hand */
     let totalNat = 0
     /** Result of rolling all die */
-    const rolls = hand.value.map(dice => {
+    const rolls: roll[] = hand.value.map(dice => {
       /** Natural result of a single roll */
       const natural = rollDie(dice)
       // hack: side effecting to omit excessive cycle
