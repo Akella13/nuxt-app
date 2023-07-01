@@ -9,7 +9,7 @@
             <input type="radio"
               :value="stat.value"
               name="stat"
-              @change="CharSelectHandler(stat.value)"
+              @change="StatSelectHandler(stat.value)"
             >
             {{ stat.value }}
             {{ stat.name }}
@@ -42,15 +42,18 @@
     <article v-if="rollHistory.length > 0">
       <h3>Your last roll:</h3>
       <ul>
-        <li v-for="roll in lastRoll">
-          d{{ roll.dice }}:
+        <li v-for="roll in lastRoll.rolls">
+          <i>d{{ roll.dice }}</i>:
           {{ roll.natural }}
+          <b v-if="roll.critical">
+            Critical {{ roll.critical }}!
+          </b>
         </li>
       </ul>
       <p>
-        <span>{{ lastRoll[0].mod >= 0 ? '+' : '' }}</span>
-        <span>{{ lastRoll[0].mod }}</span>
-        <span> = {{ lastRollTotal + lastRoll[0].mod }}</span>
+        <span>{{ lastRoll.mod >= 0 ? '+' : '' }}</span>
+        <span>{{ lastRoll.mod }}</span>
+        <span> = {{ lastRoll.totalDirty }}</span>
       </p>
     </article>
 
@@ -100,13 +103,9 @@
   /** Pull of all possible dice */
   const diceArr: dieSet = new Set([4, 6, 8, 10, 12, 20])
   /** Array of dice roll results */
-  const rollHistory = useState<roll[][]>('rollHistory', () => [])
+  const rollHistory = useState/* <roll[][]> */('rollHistory', () => [])
   /** Last roll result */
   const lastRoll = computed(() => rollHistory.value.at(-1))
-  /** Total value of the last roll */
-  const lastRollTotal = computed(() => {
-    return lastRoll.value.reduce((prev, { natural }) => prev + natural, 0)
-  })
 
   // const tweened = useTweened(lastRoll)
   // /** Tweened value to display */
@@ -117,10 +116,14 @@
 
   /** Roll all die picked by hand */
   const RollHand = () => {
+    /** Sum of natural rolls by hand */
+    let totalNat = 0
     /** Result of rolling all die */
-    const result = hand.value.map(dice => {
+    const rolls = hand.value.map(dice => {
       /** Natural result of a single roll */
       const natural = rollDie(dice)
+      // hack: side effecting to omit excessive cycle
+      totalNat += natural
       /** Critical result of a single d20 roll */
       let critical: crit
       if (dice === 20 && (natural === 1 || natural === 20)) {
@@ -130,12 +133,16 @@
       return {
         dice,
         natural,
-        mod: mod.value,
-        dirty: natural + mod.value,
         ...(critical && { critical }),
       }
+    }) 
+    // push roll object to history
+    rollHistory.value.push({
+      rolls,
+      mod: mod.value,
+      totalNat,
+      totalDirty: totalNat + mod.value,
     })
-    rollHistory.value.push(result)
   }
 
   /** Array of characteristics and their values */
@@ -166,9 +173,11 @@
     },
   ])
 
+  /** Modifier selected by user */
   const mod = ref(0)
 
-  const CharSelectHandler = (x: number) => {
+  /** Stat selecting by user */
+  const StatSelectHandler = (x: number) => {
     // change mod depending on stat
     mod.value = calcMod(x)
   }
