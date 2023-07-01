@@ -39,6 +39,21 @@
       </div>
     </article>
 
+    <article v-if="rollHistory.length > 0">
+      <h3>Your last roll:</h3>
+      <ul>
+        <li v-for="roll in lastRoll">
+          d{{ roll.dice }}:
+          {{ roll.natural }}
+        </li>
+      </ul>
+      <p>
+        <span>{{ lastRoll[0].mod >= 0 ? '+' : '' }}</span>
+        <span>{{ lastRoll[0].mod }}</span>
+        <span> = {{ lastRollTotal + lastRoll[0].mod }}</span>
+      </p>
+    </article>
+
     <!-- <article v-if="rollHistory.length > 0">
       <div>
         <h3>
@@ -88,6 +103,10 @@
   const rollHistory = useState<roll[][]>('rollHistory', () => [])
   /** Last roll result */
   const lastRoll = computed(() => rollHistory.value.at(-1))
+  /** Total value of the last roll */
+  const lastRollTotal = computed(() => {
+    return lastRoll.value.reduce((prev, { natural }) => prev + natural, 0)
+  })
 
   // const tweened = useTweened(lastRoll)
   // /** Tweened value to display */
