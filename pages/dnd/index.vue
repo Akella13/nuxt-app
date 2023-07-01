@@ -40,55 +40,47 @@
     </article>
 
     <article v-if="rollHistory.length > 0">
-      <h3>Your last roll:</h3>
-      <ul>
-        <li v-for="roll in lastRoll.rolls">
-          <i>d{{ roll.dice }}</i>:
-          {{ roll.natural }}
-          <b v-if="roll.critical">
-            Critical {{ roll.critical }}!
-          </b>
-        </li>
-      </ul>
-      <p>
-        <span>{{ lastRoll.mod >= 0 ? '+' : '' }}</span>
-        <span>{{ lastRoll.mod }}</span>
-        <span> = {{ lastRoll.totalDirty }}</span>
-      </p>
-    </article>
-
-    <!-- <article v-if="rollHistory.length > 0">
       <div>
-        <h3>
-          Your last roll:
-          {{ tweenedNumber }} +
-          {{ lastRoll.mod }} =
-          {{ tweenedNumber + lastRoll.mod }}
-        </h3>
-        <h4 v-if="lastRoll.dice === 20 && (lastRoll.natural === 1 || lastRoll.natural === 20)">
-          Critical {{ lastRoll.natural === 1 ? 'fail' : 'success' }}!
-        </h4>
+        <h3>Your last roll:</h3>
+        <ul>
+          <li v-for="roll in lastRoll.rolls">
+            <i>d{{ roll.dice }}</i>:
+            {{ roll.natural }}
+            <b v-if="roll.critical">
+              Critical {{ roll.critical }}!
+            </b>
+          </li>
+        </ul>
+        <p>
+          <span>{{ lastRoll.mod >= 0 ? '+' : '' }}</span>
+          <span>{{ lastRoll.mod }}</span>
+          <span> = {{ lastRoll.totalDirty }}</span>
+        </p>
       </div>
       <details>
         <summary>Roll log</summary>
         <table>
           <thead>
-            <th>Dice</th>
-            <th>Natural</th>
+            <th>Die</th>
+            <th>Naturals</th>
             <th>Modifier</th>
             <th>Total</th>
           </thead>
           <tbody>
-            <tr v-for="(roll, index) in [...rollHistory].reverse()" :key="index">
-              <td>d{{ roll.dice }}</td>
-              <td>{{ roll.natural }}</td>
-              <td>{{ roll.mod }}</td>
-              <td>{{ roll.dirty }}</td>
+            <tr v-for="(rollMulti, index) in [...rollHistory].reverse()" :key="index">
+              <td colspan="2">
+                <tr v-for="roll in rollMulti.rolls">
+                  <td>d{{ roll.dice }}</td>
+                  <td>{{ roll.natural }}</td>
+                </tr>
+              </td>
+              <td>{{ rollMulti.mod }}</td>
+              <td>{{ rollMulti.totalDirty }}</td>
             </tr>
           </tbody>
         </table>
       </details>
-    </article> -->
+    </article>
   </section>
 </template>
 
