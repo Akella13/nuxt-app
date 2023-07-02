@@ -1,23 +1,6 @@
 <template>
   <section>
-    <h2>Dice roller</h2>
-    <fieldset>
-      <legend>Select Modifier:</legend>
-      <ul>
-        <li v-for="stat in stats">
-          <label>
-            <input type="radio"
-              :value="stat.value"
-              name="stat"
-              @change="StatSelectHandler(stat.value)"
-            >
-            {{ stat.value }}
-            {{ stat.name }}
-          </label>
-        </li>
-      </ul>
-      <h3>Your modifier: {{ mod }}</h3>
-    </fieldset>
+    <Stats />
 
     <article>
       <h3>Choose your dice:</h3>
@@ -101,8 +84,15 @@
 </template>
 
 <script setup lang="ts">
-  import type { crit, die, dieSet, roll , rollMulti, adv } from './types'
-  import { rollDie, calcMod } from '~/utils/index'
+  import type {
+    crit,
+    die,
+    dieSet,
+    roll ,
+    rollMulti,
+    adv,
+  } from './types'
+  import { rollDie } from '~/utils/index'
 
   definePageMeta({
     title: 'Dice roller'
@@ -202,40 +192,6 @@
     })
   }
 
-  /** Array of characteristics and their values */
-  const stats = useState('stats', () => [
-    {
-      name: 'Strength',
-      value: 18,
-    },
-    {
-      name: 'Dexterity',
-      value: 12,
-    },
-    {
-      name: 'Constitution',
-      value: 14,
-    },
-    {
-      name: 'Intelligence',
-      value: 8,
-    },
-    {
-      name: 'Wisdom',
-      value: 12,
-    },
-    {
-      name: 'Charisma',
-      value: 10,
-    },
-  ])
-
-  /** Modifier selected by user */
-  const mod = ref(0)
-
-  /** Stat selecting by user */
-  const StatSelectHandler = (x: number) => {
-    // change mod depending on stat
-    mod.value = calcMod(x)
-  }
+    /** Modifier selected by user */
+    const mod = useState<number>('mod')
 </script>
