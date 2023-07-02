@@ -68,6 +68,10 @@
           <span>{{ lastRoll.mod }}</span>
           <span> = {{ lastRoll.totalDirty }}</span>
         </p>
+        <p v-if="lastRoll.d20Result && lastRoll.haveAdv">
+          {{ lastRoll.haveAdv }} on d20:
+          {{ lastRoll.d20Result }}
+        </p>
       </div>
       <details>
         <summary>Roll log</summary>
@@ -125,26 +129,7 @@
 
   /** Roll all die picked by hand */
   const RollHand = () => {
-    /** Sum of natural rolls by hand */
-    let totalNat = 0
-    /** Result of rolling all die */
-    const rolls: roll[] = hand.value.map(dice => {
-      /** Natural result of a single roll */
-      const natural = rollDie(dice)
-      // hack: side effecting to omit excessive cycle
-      totalNat += natural
-      /** Critical result of a single d20 roll */
-      let critical: crit
-      if (dice === 20 && (natural === 1 || natural === 20)) {
-        // mutate roll: add crit
-        critical = natural === 1 ? 'fail' : 'success'
-      }
-      return {
-        dice,
-        natural,
-        ...(critical && { critical }),
-      }
-    })
+    // REFAC: extract haveAdv to a function
     /** What kind of d20 roll is this */
     let haveAdv: adv
     if (oneFromMulti.value.adv && oneFromMulti.value.dis) {
@@ -156,6 +141,56 @@
     } else {
       haveAdv = 'straight'
     }
+
+    /** All d20s picked by hand */
+    let d20s: number[] = []
+    /** Sum of natural rolls by hand */
+    let totalNat = 0
+    /** Result of rolling all die */
+    const rolls: roll[] = hand.value.map(dice => {
+      /** Natural result of a single roll */
+      const natural = rollDie(dice)
+      // REFAC: purify
+      totalNat += natural
+      /** Critical result of a single d20 roll */
+      let critical: crit
+      if (dice === 20) {
+        // REFAC: purify
+        d20s.push(natural)
+        if (natural === 1 || natural === 20) {
+          // mutate roll: add crit
+          critical = natural === 1 ? 'fail' : 'success'
+        }
+      }
+      return {
+        dice,
+        natural,
+        ...(critical && { critical }),
+      }
+    })
+
+    // REFAC: extract d20Result to a function
+    const d20Result = d20s.reduce((prev, cur, ind, arr) => {
+      // first loop
+      if (prev === undefined) {
+        return cur
+      }
+      // next loops
+      if (haveAdv === 'adv') {
+        if (cur > prev) {
+          return cur
+        }
+        return prev
+      } else if (haveAdv === 'dis') {
+        if (cur < prev) {
+          return cur
+        }
+        return prev
+      } else {
+        return arr
+      }
+    }, undefined)
+
     // push roll object to history
     rollHistory.value.push({
       rolls,
@@ -163,6 +198,7 @@
       totalNat,
       totalDirty: totalNat + mod.value,
       haveAdv,
+      d20Result,
     })
   }
 

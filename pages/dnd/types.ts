@@ -29,6 +29,8 @@ export interface rollMulti {
   totalDirty: number
   /** Does this roll have advantage/disadvantage */
   haveAdv: adv
+  /** Result of rolling d20s */
+  d20Result: number | number[]
 }
 
 /** Kinds of resulting dice of multiple rolls */
