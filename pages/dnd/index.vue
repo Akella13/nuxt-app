@@ -28,6 +28,17 @@
           </button>
         </li>
       </ul>
+      <div>
+        <h4>With this roll, do you have</h4>
+        <label>
+          Advantage
+          <input type="checkbox" v-model="oneFromMulti.adv" value="adv">
+        </label>
+        <label>
+          Disadvantage
+          <input type="checkbox" v-model="oneFromMulti.dis" value="dis">
+        </label>
+      </div>
       <div v-if="hand.length > 0">
         <h4>Hand:</h4>
         <ul>
@@ -36,6 +47,7 @@
           </li>
         </ul>
         <button @click="RollHand">Roll it!</button>
+        <button @click="hand = []">Clear hand</button>
       </div>
     </article>
 
@@ -85,7 +97,7 @@
 </template>
 
 <script setup lang="ts">
-  import type { crit, die, dieSet, roll , rollMulti} from './types'
+  import type { crit, die, dieSet, roll , rollMulti, adv } from './types'
   import { rollDie, calcMod } from '~/utils/index'
 
   definePageMeta({
@@ -98,6 +110,11 @@
   const rollHistory = useState<rollMulti[]>('rollHistory', () => [])
   /** Last roll result */
   const lastRoll = computed(() => rollHistory.value.at(-1))
+  /** User has advantage/disadvantage on a d20 rolls */
+  const oneFromMulti = useState('oneFromMulti', () => ({
+    adv: false,
+    dis: false,
+  }))
 
   // const tweened = useTweened(lastRoll)
   // /** Tweened value to display */
@@ -127,13 +144,25 @@
         natural,
         ...(critical && { critical }),
       }
-    }) 
+    })
+    /** What kind of d20 roll is this */
+    let haveAdv: adv
+    if (oneFromMulti.value.adv && oneFromMulti.value.dis) {
+      haveAdv = 'straight'
+    } else if (oneFromMulti.value.adv) {
+      haveAdv = 'adv'
+    } else if (oneFromMulti.value.dis) {
+      haveAdv = 'dis'
+    } else {
+      haveAdv = 'straight'
+    }
     // push roll object to history
     rollHistory.value.push({
       rolls,
       mod: mod.value,
       totalNat,
       totalDirty: totalNat + mod.value,
+      haveAdv,
     })
   }
 

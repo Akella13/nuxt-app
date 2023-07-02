@@ -7,7 +7,7 @@ export type dieSet = Set<die>
 /** Critical value */
 export type crit = 'fail' | 'success'
 
-/** Result of rolling a single die */
+/** Result of rolling a single dice */
 export interface roll {
   /** Number of sides on a dice */
   dice: die
@@ -17,6 +17,7 @@ export interface roll {
   critical?: crit
 }
 
+/** Result of rolling multiple die */
 export interface rollMulti {
   /** Result of rolling a full hand of die */
   rolls: roll[]
@@ -26,4 +27,9 @@ export interface rollMulti {
   totalNat: number
   /** Total result with modifier */
   totalDirty: number
+  /** Does this roll have advantage/disadvantage */
+  haveAdv: adv
 }
+
+/** Kinds of resulting dice of multiple rolls */
+export type adv = 'adv' | 'dis' | 'straight'
