@@ -38,9 +38,9 @@
       <div>
         <h3>Your last roll:</h3>
         <ul>
-          <li v-for="roll in lastRoll.rolls">
+          <li v-for="(roll, index) in lastRoll.rolls" :key="index">
             <i>d{{ roll.dice }}</i>:
-            {{ roll.natural }}
+            {{ RollAnimated(index) }}
             <b v-if="roll.critical">
               Critical {{ roll.critical }}!
             </b>
@@ -55,9 +55,6 @@
           {{ lastRoll.haveAdv }} on d20:
           {{ lastRoll.d20Result }}
         </p>
-        <li v-for="tween in tweened">
-          {{ tween.number.toFixed(0) }}
-        </li>
       </div>
       <details>
         <summary>Roll log</summary>
@@ -107,18 +104,14 @@
   const rollHistory = useState<rollMulti[]>('rollHistory', () => [])
   /** Last roll result */
   const lastRoll = computed(() => rollHistory.value.at(-1))
-  /** Last roll result */
-  const lastRollResults = computed(() => lastRoll.value?.rolls)
   /** User has advantage/disadvantage on a d20 rolls */
-  const oneFromMulti = useState('oneFromMulti', () => ({
+  const oneFromMulti = reactive({
     adv: false,
     dis: false,
-  }))
+  })
 
-  // const tweenedNumbers = lastRoll?.value?.rolls?.map(useTweened)
-  const tweened = useTweened(lastRollResults)
-  // /** Tweened value to display */
-  // const tweenedNumber = computed(() => Math.round(tweened.number))
+  /** Array of tweened natural last roll numbers */
+  const tweened = useTweened(lastRoll)
 
   /** All die picked by hand */
   const hand = useState<die[]>('hand', () => [])
@@ -128,11 +121,11 @@
     // REFAC: extract haveAdv to a function
     /** What kind of d20 roll is this */
     let haveAdv: adv
-    if (oneFromMulti.value.adv && oneFromMulti.value.dis) {
+    if (oneFromMulti.adv && oneFromMulti.dis) {
       haveAdv = 'straight'
-    } else if (oneFromMulti.value.adv) {
+    } else if (oneFromMulti.adv) {
       haveAdv = 'adv'
-    } else if (oneFromMulti.value.dis) {
+    } else if (oneFromMulti.dis) {
       haveAdv = 'dis'
     } else {
       haveAdv = 'straight'
@@ -198,6 +191,9 @@
     })
   }
 
-    /** Modifier selected by user */
-    const mod = useState<number>('mod')
+  /** Modifier selected by user */
+  const mod = useState<number>('mod')
+
+  /** Polished number of a single roll for render */
+  const RollAnimated = (index: number) => tweened[index].number.toFixed(0)
 </script>
