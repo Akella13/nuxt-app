@@ -56,7 +56,7 @@
           {{ lastRoll.d20Result }}
         </p>
         <li v-for="tween in tweened">
-          {{ tween.number }}
+          {{ tween.number.toFixed(0) }}
         </li>
       </div>
       <details>
@@ -107,6 +107,8 @@
   const rollHistory = useState<rollMulti[]>('rollHistory', () => [])
   /** Last roll result */
   const lastRoll = computed(() => rollHistory.value.at(-1))
+  /** Last roll result */
+  const lastRollResults = computed(() => lastRoll.value?.rolls)
   /** User has advantage/disadvantage on a d20 rolls */
   const oneFromMulti = useState('oneFromMulti', () => ({
     adv: false,
@@ -114,7 +116,7 @@
   }))
 
   // const tweenedNumbers = lastRoll?.value?.rolls?.map(useTweened)
-  const tweened = useTweened(lastRoll)
+  const tweened = useTweened(lastRollResults)
   // /** Tweened value to display */
   // const tweenedNumber = computed(() => Math.round(tweened.number))
 
