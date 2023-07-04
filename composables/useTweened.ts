@@ -2,14 +2,25 @@ import gsap from 'gsap'
 
 /** Animated state number transition */
 export const useTweened = toAnimate => {
-  const tweened = reactive({ number: 0 })
+  // Only works if tweenedRolls are same length as rolls
+  // TODO: find a way to declare tweenedRolls on watch triggering
+  const tweenedRolls = reactive([
+    { number: 0 },
+    { number: 0 },
+    { number: 0 },
+    { number: 0 },
+    { number: 0 },
+  ])
 
   watch(toAnimate, n => {
-    gsap.to(tweened, {
-      duration: 0.5,
-      number: Number(n.natural) || 0,
-    })
+      gsap.to(tweenedRolls, {
+        duration: 0.5,
+        number: function(index) {
+          const value = n.rolls[index].natural
+          return value || 0
+        },
+      })
   })
 
-  return tweened
+  return tweenedRolls
 }

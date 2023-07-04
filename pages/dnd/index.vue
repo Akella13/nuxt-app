@@ -55,6 +55,9 @@
           {{ lastRoll.haveAdv }} on d20:
           {{ lastRoll.d20Result }}
         </p>
+        <li v-for="tween in tweened">
+          {{ tween.number }}
+        </li>
       </div>
       <details>
         <summary>Roll log</summary>
@@ -110,7 +113,8 @@
     dis: false,
   }))
 
-  // const tweened = useTweened(lastRoll)
+  // const tweenedNumbers = lastRoll?.value?.rolls?.map(useTweened)
+  const tweened = useTweened(lastRoll)
   // /** Tweened value to display */
   // const tweenedNumber = computed(() => Math.round(tweened.number))
 
