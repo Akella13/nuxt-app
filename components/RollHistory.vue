@@ -1,5 +1,5 @@
 <template>
-  <article v-if="rollHistory.length > 0">
+  <article>
     <div>
       <h3>Your last roll:</h3>
       <ul>
@@ -48,14 +48,17 @@
 </template>
 
 <script lang="ts" setup>
+import type {
+    rollMulti,
+  } from '~~/pages/dnd/types'
   // TODO: declare props' types
-  const props = defineProps({
-    rollHistory: [],
-  })
+  const props = defineProps<{
+    rollHistory: rollMulti[],
+  }>()
   /** Last roll result */
   const lastRoll = computed(() => props.rollHistory.at(-1))
   /** Array of tweened natural last roll numbers */
   const tweened = useTweened(lastRoll)
   /** Polished number of a single roll for render */
-  const RollAnimated = (index: number) => tweened[index].number.toFixed(0)
+  const RollAnimated = (index: number) => tweened[index]?.number?.toFixed(0)
 </script>

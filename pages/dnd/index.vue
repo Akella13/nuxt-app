@@ -34,8 +34,7 @@
       </div>
     </article>
 
-    <!-- TODO: conditionally render <RollHistory> -->
-    <RollHistory :roll-history="rollHistory" />
+    <RollHistory v-if="rollHistory.length" :roll-history="rollHistory" />
   </section>
 </template>
 
