@@ -34,7 +34,7 @@
       </div>
     </article>
 
-    <RollHistory v-if="rollHistory.length" :roll-history="rollHistory" />
+    <History v-if="rollHistory.length" :roll-history="rollHistory" />
   </section>
 </template>
 
@@ -141,6 +141,7 @@
     })
   }
 
+  // TODO: it should be 0 by default
   /** Modifier selected by user */
   const mod = useState<number>('mod')
 </script>

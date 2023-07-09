@@ -53,6 +53,7 @@
   /** Modifier selected by user */
   const mod = useState('mod', () => 0)
 
+  // TODO: Emit aupdated value
   /** Stat selecting by user */
   const StatSelectHandler = (x: number) => {
     // change mod depending on a stat

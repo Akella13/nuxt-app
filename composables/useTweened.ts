@@ -1,14 +1,15 @@
 import gsap from 'gsap'
-import { roll } from '~~/pages/dnd/types'
+import { rollMulti } from '~~/pages/dnd/types'
 
 /** Animated state number transition */
 export const useTweened = toAnimate => {
   /** Reactive array of numbers, waiting to be animated */
   const tweenedRolls = reactive<{ number: number }[]>([])
 
-  watch(toAnimate, n => {
+  // each time lastRoll changes => update tweenedRolls
+  watch(toAnimate, (lastRoll: rollMulti) => {
     // cycle through natural rolls
-    n.rolls.forEach((roll: roll, index: number) => {
+    lastRoll.rolls.forEach((roll, index: number) => {
       // if reactive object is not initialized, do so
       if (!tweenedRolls[index]) {
         // assign reactive object with a number
@@ -20,7 +21,9 @@ export const useTweened = toAnimate => {
         number: roll.natural || 0
       })
     })
-  })
+  },
+  // eager watcher: because <History> renders conditionally
+  { immediate: true })
 
   return tweenedRolls
 }
