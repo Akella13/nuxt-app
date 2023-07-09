@@ -34,52 +34,8 @@
       </div>
     </article>
 
-    <article v-if="rollHistory.length > 0">
-      <div>
-        <h3>Your last roll:</h3>
-        <ul>
-          <li v-for="(roll, index) in lastRoll.rolls" :key="index">
-            <i>d{{ roll.dice }}</i>:
-            {{ RollAnimated(index) }}
-            <b v-if="roll.critical">
-              Critical {{ roll.critical }}!
-            </b>
-          </li>
-        </ul>
-        <p>
-          <span>{{ lastRoll.mod >= 0 ? '+' : '' }}</span>
-          <span>{{ lastRoll.mod }}</span>
-          <span> = {{ lastRoll.totalDirty }}</span>
-        </p>
-        <p v-if="lastRoll.d20Result && lastRoll.haveAdv">
-          {{ lastRoll.haveAdv }} on d20:
-          {{ lastRoll.d20Result }}
-        </p>
-      </div>
-      <details>
-        <summary>Roll log</summary>
-        <table>
-          <thead>
-            <th>Die</th>
-            <th>Naturals</th>
-            <th>Modifier</th>
-            <th>Total</th>
-          </thead>
-          <tbody>
-            <tr v-for="(rollMulti, index) in [...rollHistory].reverse()" :key="index">
-              <td colspan="2">
-                <tr v-for="roll in rollMulti.rolls">
-                  <td>d{{ roll.dice }}</td>
-                  <td>{{ roll.natural }}</td>
-                </tr>
-              </td>
-              <td>{{ rollMulti.mod }}</td>
-              <td>{{ rollMulti.totalDirty }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </details>
-    </article>
+    <!-- TODO: conditionally render <RollHistory> -->
+    <RollHistory :roll-history="rollHistory" />
   </section>
 </template>
 
@@ -102,16 +58,11 @@
   const diceArr: dieSet = new Set([4, 6, 8, 10, 12, 20])
   /** Array of dice roll results */
   const rollHistory = useState<rollMulti[]>('rollHistory', () => [])
-  /** Last roll result */
-  const lastRoll = computed(() => rollHistory.value.at(-1))
   /** User has advantage/disadvantage on a d20 rolls */
   const oneFromMulti = reactive({
     adv: false,
     dis: false,
   })
-
-  /** Array of tweened natural last roll numbers */
-  const tweened = useTweened(lastRoll)
 
   /** All die picked by hand */
   const hand = useState<die[]>('hand', () => [])
@@ -193,7 +144,4 @@
 
   /** Modifier selected by user */
   const mod = useState<number>('mod')
-
-  /** Polished number of a single roll for render */
-  const RollAnimated = (index: number) => tweened[index].number.toFixed(0)
 </script>
