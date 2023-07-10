@@ -1,5 +1,5 @@
 import gsap from 'gsap'
-import { rollMulti } from '~~/pages/dnd/types'
+import { rollMulti } from '~~/types'
 
 /** Animated state number transition */
 export const useTweened = toAnimate => {

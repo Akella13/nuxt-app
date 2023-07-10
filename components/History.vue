@@ -46,9 +46,9 @@
 </template>
 
 <script lang="ts" setup>
-import type {
+  import type {
     rollMulti,
-  } from '~~/pages/dnd/types'
+  } from '~~/types'
   const props = defineProps<{
     rollHistory: rollMulti[],
   }>()

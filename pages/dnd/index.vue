@@ -34,20 +34,23 @@
       </div>
     </article>
 
-    <History v-if="rollHistory.length" :roll-history="rollHistory" />
+    <History v-if="rollHistory.length"
+      :roll-history="rollHistory"
+    />
   </section>
 </template>
 
 <script setup lang="ts">
   import type {
-    crit,
     die,
-    dieSet,
+    crit,
     roll ,
     rollMulti,
-    adv,
+  } from '~~/types'
+  import type {
+    dieSet,
   } from './types'
-  import { rollDie } from '~/utils/index'
+  import { rollDie, whatAdv, selectRoll } from '~/utils/index'
 
   definePageMeta({
     title: 'Dice roller'
@@ -57,29 +60,21 @@
   const diceArr: dieSet = new Set([4, 6, 8, 10, 12, 20])
   /** Array of dice roll results */
   const rollHistory = useState<rollMulti[]>('rollHistory', () => [])
+  /** All die picked by hand */
+  const hand = useState<die[]>('hand', () => [])
+  // TODO: it should be 0 by default
+  /** Modifier selected by user */
+  const mod = useState<number>('mod')
   /** User has advantage/disadvantage on a d20 rolls */
   const oneFromMulti = reactive({
     adv: false,
     dis: false,
   })
 
-  /** All die picked by hand */
-  const hand = useState<die[]>('hand', () => [])
-
   /** Roll all die picked by hand */
   const RollHand = () => {
-    // REFAC: extract haveAdv to a function
     /** What kind of d20 roll is this */
-    let haveAdv: adv
-    if (oneFromMulti.adv && oneFromMulti.dis) {
-      haveAdv = 'straight'
-    } else if (oneFromMulti.adv) {
-      haveAdv = 'adv'
-    } else if (oneFromMulti.dis) {
-      haveAdv = 'dis'
-    } else {
-      haveAdv = 'straight'
-    }
+    const haveAdv = whatAdv(oneFromMulti)
 
     /** All d20s picked by hand */
     let d20s: number[] = []
@@ -108,27 +103,7 @@
       }
     })
 
-    // REFAC: extract d20Result to a function
-    const d20Result = d20s.reduce((prev, cur, ind, arr) => {
-      // first loop
-      if (prev === undefined) {
-        return cur
-      }
-      // next loops
-      if (haveAdv === 'adv') {
-        if (cur > prev) {
-          return cur
-        }
-        return prev
-      } else if (haveAdv === 'dis') {
-        if (cur < prev) {
-          return cur
-        }
-        return prev
-      } else {
-        return arr
-      }
-    }, undefined)
+    const d20Result = selectRoll(d20s, haveAdv)
 
     // push roll object to history
     rollHistory.value.push({
@@ -140,8 +115,4 @@
       d20Result,
     })
   }
-
-  // TODO: it should be 0 by default
-  /** Modifier selected by user */
-  const mod = useState<number>('mod')
 </script>
