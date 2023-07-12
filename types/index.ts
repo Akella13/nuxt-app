@@ -18,17 +18,20 @@ export interface roll {
 }
 
 /** Result of rolling multiple die */
-export interface rollMulti {
-  /** Result of rolling a full hand of die */
+export interface rollMultiNat {
+  /** Natural result of rolling a full hand of die */
   rolls: roll[]
-  /** Modifier */
-  mod: number
   /** Total natural result */
   totalNat: number
-  /** Total result with modifier */
-  totalDirty: number
   /** Does this roll have advantage/disadvantage */
   haveAdv: adv
-  /** Result of rolling d20s */
+  /** Natural result of rolling d20s */
   d20Result: number | number[]
+}
+/** DIrty result of rolling multiple die */
+export interface rollMultiDirty extends rollMultiNat {
+  /** Modifier */
+  mod: number
+  /** Total result with modifier */
+  totalDirty: number
 }
