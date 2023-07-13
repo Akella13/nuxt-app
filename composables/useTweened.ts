@@ -1,5 +1,5 @@
 import gsap from 'gsap'
-import { rollMulti } from '~~/types'
+import { rollMultiDirty } from '~~/types'
 
 /** Animated state number transition */
 export const useTweened = toAnimate => {
@@ -7,7 +7,7 @@ export const useTweened = toAnimate => {
   const tweenedRolls = reactive<{ number: number }[]>([])
 
   // each time lastRoll changes => update tweenedRolls
-  watch(toAnimate, (lastRoll: rollMulti) => {
+  watch(toAnimate, (lastRoll: rollMultiDirty) => {
     // cycle through natural rolls
     lastRoll.rolls.forEach((roll, index: number) => {
       // if reactive object is not initialized, do so

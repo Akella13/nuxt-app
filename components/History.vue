@@ -47,15 +47,18 @@
 
 <script lang="ts" setup>
   import type {
-    rollMulti,
+    rollMultiDirty,
   } from '~~/types'
+
   const props = defineProps<{
-    rollHistory: rollMulti[],
+    rollHistory: rollMultiDirty[],
   }>()
+
   /** Last roll result */
   const lastRoll = computed(() => props.rollHistory.at(-1))
   /** Array of tweened natural last roll numbers */
   const tweened = useTweened(lastRoll)
+
   /** Polished number of a single roll for render */
   const RollAnimated = (index: number) => {
     return tweened[index]?.number?.toFixed(0)

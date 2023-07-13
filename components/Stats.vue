@@ -16,12 +16,14 @@
       </li>
     </ul>
     <h3>Your modifier: {{ mod }}</h3>
+    <button @click="mod = 0">Reset modifier</button>
   </fieldset>
 </template>
 
 <script setup lang="ts">
   import { calcMod } from '~/utils/index'
 
+  // TODO: extract stats to JSON
   /** Array of characteristics and their values */
   const stats = useState('stats', () => [
     {
@@ -53,7 +55,6 @@
   /** Modifier selected by user */
   const mod = useState('mod', () => 0)
 
-  // TODO: Emit aupdated value
   /** Stat selecting by user */
   const StatSelectHandler = (x: number) => {
     // change mod depending on a stat

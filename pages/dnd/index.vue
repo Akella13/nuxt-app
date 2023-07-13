@@ -19,10 +19,10 @@
 
   /** Array of dice roll results */
   const rollHistory = useState<rollMultiDirty[]>('rollHistory', () => [])
-  // TODO: it should be 0 by default
   /** Modifier selected by user */
   const mod = useState<number>('mod')
 
+  /** Add roll to roll history */
   const UpdateHistory = (payload: rollMultiNat) => {
     rollHistory.value.push({
       ...payload,
