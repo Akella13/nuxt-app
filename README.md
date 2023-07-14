@@ -1,15 +1,20 @@
 # My Nuxt App
+
 ## Features
-* [Nuxt 3](https://v3.nuxtjs.org/)
-* [Vue 3](https://vuejs.org/)
-* [Typescript](https://www.typescriptlang.org/)
-* [Vitest](https://vitest.dev/)
+
+- [Nuxt 3](https://v3.nuxtjs.org/)
+- [Vue 3](https://vuejs.org/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Vitest](https://vitest.dev/)
+
 ## Setup
 
 Make sure to install the dependencies:
+
 ```bash
 npm install
 ```
+
 ## Development
 
 Start the development server on http://localhost:3000

@@ -5,7 +5,6 @@ import type {
   roll,
 } from '~~/types'
 
-// TODO: add 'stat' type
 /** Modifier of a characteristic stat */
 export const calcMod = (stat: number = 0) => Math.floor((stat - 10) / 2)
 
@@ -68,7 +67,7 @@ const rollNats = (dieArr: die[]) => {
     /** Critical result of a single d20 roll */
     let critical: crit
     /** Accumulated d20s picked by hand */
-    const d20s = [ ...acc.d20s ]
+    const d20s = [...acc.d20s]
     if (val === 20) {
       // add d20 roll result to d20s array
       d20s.push(natural)
