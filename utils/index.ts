@@ -8,7 +8,6 @@ import type {
 /** Modifier of a characteristic stat */
 export const calcMod = (stat: number = 0) => Math.floor((stat - 10) / 2)
 
-// TODO: add 'die' type
 /** Random result of a die roll */
 const rollDie = (sides: die = 20) => Math.round(Math.random() * (sides - 1)) + 1
 
@@ -35,26 +34,41 @@ const selectRoll = (
   dieArr: number[] = [],
   haveAdv: adv = 'straight'
 ) => {
-  return dieArr.reduce((prev, cur, ind, arr) => {
-    // first loop
-    if (prev === undefined) {
-      return cur
-    }
-    // next loops
-    if (haveAdv === 'adv') {
-      if (cur > prev) {
-        return cur
-      }
-      return prev
-    } else if (haveAdv === 'dis') {
-      if (cur < prev) {
-        return cur
-      }
-      return prev
-    } else {
-      return arr
-    }
-  }, undefined)
+  switch (dieArr.length) {
+    case 0:
+      throw new Error('No dice rolled => nothing to select from')
+      case 1:
+      // if only one dice was rolled => it is selected by default
+      return dieArr[0]
+    default:
+      /** Copy of die array (to avoid mutation during cycle on early breaking) */
+      const copy = [...dieArr]
+      return copy.reduce((acc: number | number[], val, index, arr) => {
+        // if there is no advantage
+        if (haveAdv === 'straight') {
+          // break the cycle on first loop
+          // callback won't be called on second element, since there will be none
+          arr.splice(0)
+          // return whole array
+          return dieArr
+        } else if (Array.isArray(acc)) {
+          // HACK: omit acc: number[], though cycle shouldn't reach here anyway
+          throw new Error('dieArr.reduce() is not working properly')
+        } else {
+          // first loop
+          if (acc === -1) {
+            return val
+          }
+          // next loops
+          if (haveAdv === 'adv') {
+            // advantage
+            return val > acc ? val : acc
+          }
+          // disadvantage
+          return val < acc ? val : acc
+        }
+      }, -1)
+  }
 }
 
 /** Result of rolling multiple die */
