@@ -54,8 +54,9 @@
     rollHistory: rollMultiDirty[],
   }>()
 
+  // BUG: array.at() returns undefined if index < -array.length or index >= array.length
   /** Last roll result */
-  const lastRoll = computed(() => props.rollHistory.at(-1))
+  const lastRoll = computed(() => props.rollHistory[props.rollHistory.length - 1])
   /** Array of tweened natural last roll numbers */
   const tweened = useTweened(lastRoll)
 
