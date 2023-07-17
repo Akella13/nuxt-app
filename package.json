@@ -7,14 +7,14 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "test": "vitest",
+    "test": "vitest run",
     "type": "npx nuxi typecheck"
   },
   "devDependencies": {
-    "@nuxt/test-utils-edge": "^3.0.0-rc.12-27746784.92ff066",
+    "@nuxt/test-utils": "^3.6.3",
     "nuxt": "^3.6",
-    "typescript": "^4.8.4",
-    "vitest": "^0.23.4",
+    "typescript": "^5.1.6",
+    "vitest": "^0.33.0",
     "vue-tsc": "^1.0.0"
   },
   "dependencies": {
