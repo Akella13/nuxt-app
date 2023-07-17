@@ -3,7 +3,7 @@
     <Stats />
     <!-- HACK: '?url' option enable nuxt to find correct path to asset -->
     <!-- <img src="@/assets/icons/Die.svg?url"> -->
-    <SvgoDie :font-controlled="false" filled />
+    <!-- <SvgoDie :font-controlled="false" filled /> -->
 
     <Roller @roll="UpdateHistory" />
 

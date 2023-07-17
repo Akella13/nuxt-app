@@ -79,7 +79,7 @@ const rollNats = (dieArr: die[]) => {
     /** Accumulated sum of natural rolls by hand */
     const totalNat = acc.totalNat + natural
     /** Critical result of a single d20 roll */
-    let critical: crit
+    let critical: crit | undefined = undefined
     /** Accumulated d20s picked by hand */
     const d20s = [...acc.d20s]
     if (val === 20) {

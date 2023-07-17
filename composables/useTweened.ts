@@ -2,7 +2,7 @@ import gsap from 'gsap'
 import { rollMultiDirty } from '~~/types'
 
 /** Animated state number transition */
-export const useTweened = toAnimate => {
+export const useTweened = (toAnimate: ComputedRef<rollMultiDirty>) => {
   /** Reactive array of numbers, waiting to be animated */
   const tweenedRolls = reactive<{ number: number }[]>([])
 
