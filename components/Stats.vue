@@ -23,34 +23,8 @@
 <script setup lang="ts">
   import { calcMod } from '~/utils/index'
 
-  // TODO: extract stats to JSON
   /** Array of characteristics and their values */
-  const stats = useState('stats', () => [
-    {
-      name: 'Strength',
-      value: 18,
-    },
-    {
-      name: 'Dexterity',
-      value: 12,
-    },
-    {
-      name: 'Constitution',
-      value: 14,
-    },
-    {
-      name: 'Intelligence',
-      value: 8,
-    },
-    {
-      name: 'Wisdom',
-      value: 12,
-    },
-    {
-      name: 'Charisma',
-      value: 10,
-    },
-  ])
+  const { data: stats } = await useFetch('/api/stats')
 
   /** Modifier selected by user */
   const mod = useState('mod', () => 0)
