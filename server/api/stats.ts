@@ -1,4 +1,6 @@
-export default defineEventHandler(() => {
+export default defineEventHandler(async () => {
+  // HACK: artificial lag
+  await new Promise(resolve => setTimeout(resolve, 3000))
   return [
     {
       name: 'Strength',

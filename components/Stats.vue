@@ -2,7 +2,10 @@
   <h2>Dice roller</h2>
   <fieldset>
     <legend>Select Modifier:</legend>
-    <ul>
+    <span v-if="pending">
+      Loading ...
+    </span>
+    <ul v-else>
       <li v-for="stat in stats">
         <label>
           <input type="radio"
@@ -16,15 +19,22 @@
       </li>
     </ul>
     <h3>Your modifier: {{ mod }}</h3>
-    <button @click="mod = 0">Reset modifier</button>
+    <button v-show="mod !== 0"
+      @click="mod = 0"
+    >
+      Reset modifier
+    </button>
   </fieldset>
 </template>
 
 <script setup lang="ts">
   import { calcMod } from '~/utils/index'
 
+  // Pull stats from localStorage
+  // if there are none, fetch from api
   /** Array of characteristics and their values */
-  const { data: stats } = await useFetch('/api/stats')
+  const { pending, data: stats } = await useFetch('/api/stats', { lazy: true })
+  // write them to localStorage
 
   /** Modifier selected by user */
   const mod = useState('mod', () => 0)
