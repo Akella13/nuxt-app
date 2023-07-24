@@ -1,7 +1,10 @@
-// import { defineNuxtConfig } from 'nuxt/config'
-// https://v3.nuxtjs.org/api/configuration/nuxt.config
+import svgLoader from 'vite-svg-loader'
+
 export default defineNuxtConfig({
   typescript: {
     typeCheck: 'build',
   },
+  vite: {
+    plugins: [svgLoader()]
+  }
 })

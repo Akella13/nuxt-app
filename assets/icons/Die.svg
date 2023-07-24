@@ -1,19 +1,40 @@
-<svg data-name="Layer"
-  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1894.68 145.42">
+<svg data-name="Layer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1894.68 145.42">
   <defs>
-    <style>.cls-1,.cls-2,.cls-3{fill:none;stroke:#1d1d1b;stroke-width:6px;}.cls-1,.cls-2{stroke-miterlimit:10;}.cls-2,.cls-3{stroke-linecap:round;}.cls-3{stroke-linejoin:round;}</style>
+    <style>
+      .cls-1,
+      .cls-2,
+      .cls-3 {
+        fill: none;
+        stroke: #1d1d1b;
+        stroke-width: 6px;
+      }
+
+      .cls-1,
+      .cls-2 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2,
+      .cls-3 {
+        stroke-linecap: round;
+      }
+
+      .cls-3 {
+        stroke-linejoin: round;
+      }
+    </style>
   </defs>
   <!-- d4 -->
-  <g id="d4">
+  <symbol id="d4">
     <line class="cls-1" x1="72.12" y1="12.23" x2="3" y2="140.75"/>
     <line class="cls-2" x1="3" y1="140.75" x2="140.81" y2="140.75"/>
     <line class="cls-1" x1="72.12" y1="12.23" x2="142.32" y2="140.75"/>
     <line class="cls-2" x1="72.12" y1="12.23" x2="153.12" y2="95.39"/>
     <line class="cls-2" x1="153.12" y1="95.39" x2="140.81" y2="140.75"/>
-  </g>
+  </symbol>
 
   <!-- d6 -->
-  <g id="d6">
+  <symbol id="d6">
     <line class="cls-2" x1="341.04" y1="32.75" x2="341.04" y2="140.75"/>
     <line class="cls-1" x1="446.88" y1="32.75" x2="446.88" y2="141.83"/>
     <line class="cls-2" x1="341.04" y1="32.75" x2="446.88" y2="32.75"/>
@@ -23,18 +44,18 @@
     <line class="cls-3" x1="362.64" y1="11.15" x2="467.4" y2="11.15"/>
     <line class="cls-1" x1="446.88" y1="140.75" x2="467.4" y2="118.07"/>
     <line class="cls-2" x1="467.4" y1="12.23" x2="467.4" y2="118.07"/>
-  </g>
+  </symbol>
 
   <!-- d8 -->
-  <g id="d8">
+  <symbol id="d8">
     <polygon class="cls-2" points="757.07 5.14 699.29 38.5 699.29 105.22 757.07 138.58 814.86 105.22 814.86 38.5 757.07 5.14"/>
     <line class="cls-2" x1="757.07" y1="5.14" x2="699.29" y2="105.22"/>
     <line class="cls-2" x1="814.86" y1="105.22" x2="757.07" y2="5.14"/>
     <line class="cls-2" x1="699.29" y1="105.22" x2="814.86" y2="105.22"/>
-  </g>
+  </symbol>
 
   <!-- d10 -->
-  <g id="d10">
+  <symbol id="d10">
     <line class="cls-2" x1="1110" y1="3.93" x2="1043.76" y2="55.69"/>
     <line class="cls-2" x1="1043.76" y1="83.85" x2="1108.56" y2="142.3"/>
     <line class="cls-2" x1="1110" y1="3.93" x2="1173.36" y2="56.38"/>
@@ -48,10 +69,10 @@
     <line class="cls-2" x1="1156.44" y1="83.85" x2="1108.56" y2="106.98"/>
     <line class="cls-2" x1="1110" y1="3.93" x2="1156.44" y2="83.85"/>
     <line class="cls-2" x1="1060.68" y1="83.85" x2="1108.56" y2="106.98"/>
-  </g>
+  </symbol>
 
   <!-- d12 -->
-  <g id="d12">
+  <symbol id="d12">
     <polygon class="cls-2" points="1464.38 26.38 1422.25 56.98 1438.35 106.51 1490.42 106.51 1506.51 56.98 1464.38 26.38"/>
     <polygon class="cls-2" points="1464.22 3.97 1423.92 18.23 1399.7 53.46 1400.81 96.19 1426.83 130.11 1467.81 142.26 1508.11 128 1532.33 92.77 1531.22 50.04 1505.2 16.12 1464.22 3.97"/>
     <line class="cls-2" x1="1464.38" y1="26.38" x2="1464.38" y2="3.97"/>
@@ -59,10 +80,10 @@
     <line class="cls-2" x1="1438.35" y1="106.51" x2="1426.83" y2="130.11"/>
     <line class="cls-2" x1="1490.42" y1="106.51" x2="1508.11" y2="128"/>
     <line class="cls-2" x1="1506.51" y1="56.98" x2="1529.32" y2="47.55"/>
-  </g>
+  </symbol>
 
   <!-- d20 -->
-  <g id="d20">
+  <symbol id="d20" viewBox="0 0 1894.68 145.42">
     <polygon class="cls-2" points="1831.81 3.46 1771.94 38.03 1771.94 107.16 1831.81 141.72 1891.68 107.16 1891.68 38.03 1831.81 3.46"/>
     <polygon class="cls-2" points="1831.81 31.39 1796.16 93.14 1867.47 93.14 1831.81 31.39"/>
     <line class="cls-2" x1="1771.95" y1="38.03" x2="1831.81" y2="31.39"/>
@@ -74,5 +95,5 @@
     <line class="cls-2" x1="1891.68" y1="38.03" x2="1867.47" y2="93.14"/>
     <line class="cls-2" x1="1891.68" y1="107.16" x2="1867.47" y2="93.14"/>
     <line class="cls-2" x1="1831.81" y1="141.72" x2="1867.47" y2="93.14"/>
-  </g>
+  </symbol>
 </svg>

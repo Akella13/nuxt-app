@@ -1,6 +1,10 @@
 <template>
   <article>
     <h3>Choose your dice:</h3>
+    <Vector style="display: none" />
+    <svg>
+      <use href="#d20" width="75" height="75" fill="#09ac1e" />
+    </svg> 
     <ul>
       <li v-for="dice in diceArr">
         <button @click="hand.push(dice)">
@@ -38,6 +42,7 @@
     rollMultiNat,
   } from '~~/types'
   import { rollResult } from '~/utils/index'
+  import Vector from '~~/assets/icons/Die.svg'
 
   const emit = defineEmits<{
     roll: [rollObj: rollMultiNat],
