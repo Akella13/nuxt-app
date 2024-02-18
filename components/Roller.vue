@@ -2,8 +2,8 @@
   <article>
     <h3>Choose your dice:</h3>
     <Vector style="display: none" />
-    <svg>
-      <use href="#d20" width="75" height="75" fill="#09ac1e" />
+    <svg class="svg">
+      <use href="#d20" />
     </svg> 
     <ul>
       <li v-for="dice in diceArr">
@@ -64,3 +64,11 @@
     emit('roll', payload)
   }
 </script>
+
+<style>
+  .svg {
+    width: 100px;
+    height: 100px;
+    stroke: red;
+  }
+</style>
