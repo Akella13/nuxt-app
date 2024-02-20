@@ -1,99 +1,73 @@
-<svg data-name="Layer" xmlns="http://www.w3.org/2000/svg">
+<svg data-name="Layer" xmlns="http://www.w3.org/2000/svg" style="background-color:#FFF">
   <defs>
     <style>
-      .cls-1,
-      .cls-2,
-      .cls-3 {
-        fill: none;
-        stroke: #1d1d1b;
-        stroke-width: 6px;
-      }
-
-      .cls-1,
-      .cls-2 {
-        stroke-miterlimit: 10;
-      }
-
-      .cls-2,
-      .cls-3 {
-        stroke-linecap: round;
-      }
-
-      .cls-3 {
-        stroke-linejoin: round;
-      }
     </style>
   </defs>
-  <!-- d4 -->
-  <symbol id="d4">
-    <line class="cls-1" x1="72.12" y1="12.23" x2="3" y2="140.75"/>
-    <line class="cls-2" x1="3" y1="140.75" x2="140.81" y2="140.75"/>
-    <line class="cls-1" x1="72.12" y1="12.23" x2="142.32" y2="140.75"/>
-    <line class="cls-2" x1="72.12" y1="12.23" x2="153.12" y2="95.39"/>
-    <line class="cls-2" x1="153.12" y1="95.39" x2="140.81" y2="140.75"/>
+ <!-- d4 -->
+  <symbol id="d4" viewBox="0.5 9.7 155.13 133.58">
+    <path stroke="black" fill="none" stroke-width="1" d="M72.12, 12.23L3, 140.75"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M140.81, 140.75L3, 140.75"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M72.12, 12.23L142.32, 140.75"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M72.12, 12.23L153.12, 95.39"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M153.12, 95.39L140.81, 140.75"/>
   </symbol>
-
   <!-- d6 -->
-  <symbol id="d6">
-    <line class="cls-2" x1="341.04" y1="32.75" x2="341.04" y2="140.75"/>
-    <line class="cls-1" x1="446.88" y1="32.75" x2="446.88" y2="141.83"/>
-    <line class="cls-2" x1="341.04" y1="32.75" x2="446.88" y2="32.75"/>
-    <line class="cls-2" x1="341.04" y1="140.75" x2="446.88" y2="140.75"/>
-    <line class="cls-1" x1="341.04" y1="32.75" x2="362.64" y2="11.15"/>
-    <line class="cls-1" x1="446.88" y1="32.75" x2="467.4" y2="12.23"/>
-    <line class="cls-3" x1="362.64" y1="11.15" x2="467.4" y2="11.15"/>
-    <line class="cls-1" x1="446.88" y1="140.75" x2="467.4" y2="118.07"/>
-    <line class="cls-2" x1="467.4" y1="12.23" x2="467.4" y2="118.07"/>
+  <symbol id="d6" viewBox="338.52 8.62 131.38 135.73">
+    <path stroke="black" fill="none" stroke-width="1" d="M341.04, 32.75L341.04, 140.75"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M446.88, 32.75L446.88, 141.83"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M446.88, 32.75L341.04, 32.75"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M446.88, 140.75L341.04, 140.75"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M341.04, 32.75L362.64, 11.15"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M446.88, 32.75L467.4, 12.23"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M467.4, 11.15L362.64, 11.15"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M446.88, 140.75L467.4, 118.07"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M467.4, 12.23L467.4, 118.07"/>
   </symbol>
-
   <!-- d8 -->
-  <symbol id="d8">
-    <polygon class="cls-2" points="757.07 5.14 699.29 38.5 699.29 105.22 757.07 138.58 814.86 105.22 814.86 38.5 757.07 5.14"/>
-    <line class="cls-2" x1="757.07" y1="5.14" x2="699.29" y2="105.22"/>
-    <line class="cls-2" x1="814.86" y1="105.22" x2="757.07" y2="5.14"/>
-    <line class="cls-2" x1="699.29" y1="105.22" x2="814.86" y2="105.22"/>
+  <symbol id="d8" viewBox="696.77 2.63 120.6 138.45">
+    <path stroke="black" fill="none" stroke-width="1" d="M757.07, 5.14L814.86, 38.5L814.86, 105.22L757.07, 138.58L699.29, 105.22L699.29, 38.5L757.07, 5.14"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M757.07, 5.14L699.29, 105.22"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M814.86, 105.22L757.07, 5.14"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M814.86, 105.22L699.29, 105.22"/>
   </symbol>
-
   <!-- d10 -->
-  <symbol id="d10">
-    <line class="cls-2" x1="1110" y1="3.93" x2="1043.76" y2="55.69"/>
-    <line class="cls-2" x1="1043.76" y1="83.85" x2="1108.56" y2="142.3"/>
-    <line class="cls-2" x1="1110" y1="3.93" x2="1173.36" y2="56.38"/>
-    <line class="cls-2" x1="1108.56" y1="142.3" x2="1171.92" y2="86.15"/>
-    <line class="cls-2" x1="1043.76" y1="55.69" x2="1043.76" y2="83.85"/>
-    <line class="cls-2" x1="1173.36" y1="56.38" x2="1173.36" y2="83.85"/>
-    <line class="cls-2" x1="1043.76" y1="83.85" x2="1060.68" y2="83.85"/>
-    <line class="cls-2" x1="1173.36" y1="83.85" x2="1156.44" y2="83.85"/>
-    <line class="cls-2" x1="1108.56" y1="142.3" x2="1108.56" y2="106.98"/>
-    <line class="cls-2" x1="1110" y1="3.93" x2="1060.68" y2="83.85"/>
-    <line class="cls-2" x1="1156.44" y1="83.85" x2="1108.56" y2="106.98"/>
-    <line class="cls-2" x1="1110" y1="3.93" x2="1156.44" y2="83.85"/>
-    <line class="cls-2" x1="1060.68" y1="83.85" x2="1108.56" y2="106.98"/>
+  <symbol id="d10" viewBox="1041.25 1.4 134.63 143.42">
+    <path stroke="black" fill="none" stroke-width="1" d="M1110, 3.93L1043.76, 55.69"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1043.76, 83.85L1108.56, 142.3"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1110, 3.93L1173.36, 56.38"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1108.56, 142.3L1171.92, 86.15"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1043.76, 55.69L1043.76, 83.85"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1173.36, 56.38L1173.36, 83.85"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1060.68, 83.85L1043.76, 83.85"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1156.44, 83.85L1173.36, 83.85"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1108.56, 142.3L1108.56, 106.98"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1110, 3.93L1060.68, 83.85"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1156.44, 83.85L1108.56, 106.98"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1110, 3.93L1156.44, 83.85"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1060.68, 83.85L1108.56, 106.98"/>
   </symbol>
-
   <!-- d12 -->
-  <symbol id="d12">
-    <polygon class="cls-2" points="1464.38 26.38 1422.25 56.98 1438.35 106.51 1490.42 106.51 1506.51 56.98 1464.38 26.38"/>
-    <polygon class="cls-2" points="1464.22 3.97 1423.92 18.23 1399.7 53.46 1400.81 96.19 1426.83 130.11 1467.81 142.26 1508.11 128 1532.33 92.77 1531.22 50.04 1505.2 16.12 1464.22 3.97"/>
-    <line class="cls-2" x1="1464.38" y1="26.38" x2="1464.38" y2="3.97"/>
-    <line class="cls-2" x1="1422.25" y1="56.98" x2="1399.7" y2="53.46"/>
-    <line class="cls-2" x1="1438.35" y1="106.51" x2="1426.83" y2="130.11"/>
-    <line class="cls-2" x1="1490.42" y1="106.51" x2="1508.11" y2="128"/>
-    <line class="cls-2" x1="1506.51" y1="56.98" x2="1529.32" y2="47.55"/>
+  <symbol id="d12" viewBox="1397.18 1.47 137.67 143.32">
+    <path stroke="black" fill="none" stroke-width="1" d="M1464.38, 26.38L1506.51, 56.98L1490.42, 106.51L1438.35, 106.51L1422.25, 56.98L1464.38, 26.38"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1464.22, 3.97L1505.2, 16.12L1531.22, 50.04L1532.33, 92.77L1508.11, 128L1467.81, 142.26L1426.83, 130.11L1400.81, 96.19L1399.7, 53.46L1423.92, 18.23L1464.22, 3.97"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1464.38, 26.38L1464.38, 3.97"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1422.25, 56.98L1399.7, 53.46"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1438.35, 106.51L1426.83, 130.11"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1490.42, 106.51L1508.11, 128"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1506.51, 56.98L1529.32, 47.55"/>
   </symbol>
-
   <!-- d20 -->
-  <symbol id="d20" viewBox="1771 150 300 1">
-    <polygon class="cls-2" points="1831.81 3.46 1771.94 38.03 1771.94 107.16 1831.81 141.72 1891.68 107.16 1891.68 38.03 1831.81 3.46"/>
-    <polygon class="cls-2" points="1831.81 31.39 1796.16 93.14 1867.47 93.14 1831.81 31.39"/>
-    <line class="cls-2" x1="1771.95" y1="38.03" x2="1831.81" y2="31.39"/>
-    <line class="cls-2" x1="1831.81" y1="3.46" x2="1831.81" y2="31.39"/>
-    <line class="cls-2" x1="1891.68" y1="38.03" x2="1831.81" y2="31.39"/>
-    <line class="cls-2" x1="1771.95" y1="38.03" x2="1796.16" y2="93.14"/>
-    <line class="cls-2" x1="1831.81" y1="141.72" x2="1796.16" y2="93.14"/>
-    <line class="cls-2" x1="1771.95" y1="107.16" x2="1796.16" y2="93.14"/>
-    <line class="cls-2" x1="1891.68" y1="38.03" x2="1867.47" y2="93.14"/>
-    <line class="cls-2" x1="1891.68" y1="107.16" x2="1867.47" y2="93.14"/>
-    <line class="cls-2" x1="1831.81" y1="141.72" x2="1867.47" y2="93.14"/>
+  <symbol id="d20" viewBox="1769.43 0.95 124.77 143.3">
+    <path stroke="black" fill="none" stroke-width="1" d="M1831.81, 3.46L1891.68, 38.03L1891.68, 107.16L1831.81, 141.72L1771.94, 107.16L1771.94, 38.03L1831.81, 3.46"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1831.81, 31.39L1867.47, 93.14L1796.16, 93.14L1831.81, 31.39"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1771.95, 38.03L1831.81, 31.39"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1831.81, 3.46L1831.81, 31.39"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1891.68, 38.03L1831.81, 31.39"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1771.95, 38.03L1796.16, 93.14"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1831.81, 141.72L1796.16, 93.14"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1771.95, 107.16L1796.16, 93.14"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1891.68, 38.03L1867.47, 93.14"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1891.68, 107.16L1867.47, 93.14"/>
+    <path stroke="black" fill="none" stroke-width="1" d="M1831.81, 141.72L1867.47, 93.14"/>
   </symbol>
 </svg>
