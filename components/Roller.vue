@@ -3,7 +3,7 @@
     <h3>Choose your dice:</h3>
     <Vector style="display: none" />
     <svg class="svg">
-      <use href="#d20" />
+      <use href="#d4" />
     </svg> 
     <ul>
       <li v-for="dice in diceArr">
@@ -70,5 +70,6 @@
     width: 100px;
     height: 100px;
     stroke: red;
+    fill: transparent;
   }
 </style>
