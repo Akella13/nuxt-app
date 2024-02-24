@@ -1,17 +1,5 @@
-<svg data-name="Layer" xmlns="http://www.w3.org/2000/svg" style="background-color:#FFF" stroke="black" fill="none" stroke-width="1">
- <!-- style="background-color:#FFF" stroke="black" fill="none" stroke-width="1"  -->
- <!-- BUG: cleanupIds svgo plugin drops image if <style> is empty -->
-  <!-- <defs>
-    <style>
-      .path {
-        background-color: transparent
-        stroke: black;
-        fill: none;
-        stroke-width: 1;
-      }
-    </style>
-  </defs> -->
- <!-- d4 -->
+<svg xmlns="http://www.w3.org/2000/svg">
+  <!-- d4 -->
   <symbol id="d4" viewBox="0.5 9.7 155.13 133.58">
     <path d="M72.12, 12.23L3, 140.75"/>
     <path d="M140.81, 140.75L3, 140.75"/>

@@ -1,6 +1,7 @@
 <template>
   <article>
     <h3>Choose your dice:</h3>
+    <!-- REFACT: svg component -->
     <Vector style="display: none" />
     <svg class="svg">
       <use href="#d4" />
@@ -69,7 +70,7 @@
   .svg {
     width: 100px;
     height: 100px;
-    stroke: red;
-    fill: transparent;
+    stroke: #000;
+    fill: none;
   }
 </style>

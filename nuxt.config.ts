@@ -5,47 +5,25 @@ export default defineNuxtConfig({
     typeCheck: 'build',
   },
   vite: {
-    plugins: [svgLoader({
-      // svgo: false
-      svgoConfig: {
-        plugins: [
-          'removeDoctype',
-          'removeXMLProcInst',
-          'removeComments',
-          'removeMetadata',
-          'removeEditorsNSData',
-          'cleanupAttrs',
-          'mergeStyles',
-          'inlineStyles',
-          'minifyStyles',
-          // 'cleanupIds',
-          'removeUselessDefs',
-          'cleanupNumericValues',
-          'convertColors',
-          'removeUnknownsAndDefaults',
-          'removeNonInheritableGroupAttrs',
-          'removeUselessStrokeAndFill',
-          'removeViewBox',
-          'cleanupEnableBackground',
-          'removeHiddenElems',
-          'removeEmptyText',
-          'convertShapeToPath',
-          'convertEllipseToCircle',
-          'moveElemsAttrsToGroup',
-          'moveGroupAttrsToElems',
-          'collapseGroups',
-          'convertPathData',
-          'convertTransform',
-          'removeEmptyAttrs',
-          'removeEmptyContainers',
-          'mergePaths',
-          'removeUnusedNS',
-          'sortDefsChildren',
-          'removeTitle',
-          'removeDesc',
-        ],
-        // multipass: true
-      }
-    })]
-  }
+    plugins: [
+      svgLoader({
+        svgoConfig: {
+          plugins: [
+            {
+              name: 'preset-default',
+              params: {
+                overrides: {
+                  // https://github.com/svg/svgo/issues/1962
+                  // disable plugins
+                  removeHiddenElems: false, // don't remove invisible elements
+                  removeUselessDefs: false, // don't remove unused symbols
+                  cleanupIds: false // don't remove symbol ids
+                },
+              },
+            },
+          ],
+        },
+      }),
+    ],
+  },
 })
