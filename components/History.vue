@@ -5,6 +5,7 @@
       <li v-for="(roll, index) in lastRoll.rolls" :key="index">
         <i>d{{ roll.dice }}</i>:
         {{ RollAnimated(index) }}
+        <Vector :dice="roll.dice" />
         <b v-if="roll.critical">
           Critical {{ roll.critical }}!
         </b>
@@ -20,6 +21,7 @@
       {{ lastRoll.d20Result }}
     </p>
   </div>
+  
   <details>
     <summary>Roll log</summary>
     <table>
@@ -49,6 +51,7 @@
   import type {
     rollMultiDirty,
   } from '~~/types'
+  import Vector from '~~/components/Vector.vue'
 
   const props = defineProps<{
     rollHistory: rollMultiDirty[],

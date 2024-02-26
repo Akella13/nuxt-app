@@ -116,7 +116,7 @@ const rollNats = (dieArr: die[]) => {
   })
 }
 
-/** Result of rolling multiple die from a hande */
+/** Result of rolling multiple die from a hand */
 export const rollResult = (
   dieArr: die[],
   oneFromMulti = {

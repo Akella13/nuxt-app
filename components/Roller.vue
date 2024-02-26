@@ -1,7 +1,7 @@
 <template>
   <article>
     <h3>Choose your dice:</h3>
-    <Vector />
+
     <ul>
       <li v-for="dice in diceArr">
         <button @click="hand.push(dice)">
@@ -9,6 +9,7 @@
         </button>
       </li>
     </ul>
+
     <div>
       <h4>With this roll, do you have</h4>
       <label>
@@ -20,6 +21,7 @@
         <input type="checkbox" v-model="oneFromMulti.dis" value="dis">
       </label>
     </div>
+
     <div v-if="hand.length > 0">
       <h4>Hand:</h4>
       <ul>
@@ -30,6 +32,7 @@
       <button @click="RollHand">Roll it!</button>
       <button @click="hand = []">Clear hand</button>
     </div>
+
   </article>
 </template>
 
@@ -39,7 +42,6 @@
     rollMultiNat,
   } from '~~/types'
   import { rollResult } from '~/utils/index'
-  import Vector from '~~/components/Vector.vue'
 
   const emit = defineEmits<{
     roll: [

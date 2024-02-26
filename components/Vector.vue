@@ -2,7 +2,7 @@
   <div>
     <Sprite style="display: none" />
     <svg class="svg">
-      <use href="#d4" />
+      <use :href="`#d${dice}`" />
     </svg> 
   </div>
 </template>
@@ -10,7 +10,9 @@
 <script lang="ts" setup>
   import Sprite from '~~/assets/icons/Die.svg'
 
-
+  const props = defineProps<{
+    dice: number,
+  }>()
 </script>
 
 <style>
