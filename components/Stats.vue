@@ -30,11 +30,15 @@
 <script setup lang="ts">
   import { calcMod } from '~/utils/index'
 
-  // Pull stats from localStorage
+  // TODO: Pull stats from localStorage
   // if there are none, fetch from api
-  /** Array of characteristics and their values */
-  const { pending, data: stats } = await useFetch('/api/stats', { lazy: true })
-  // write them to localStorage
+  const {
+    /** fetch status */
+    pending,
+    /** Array of characteristics and their values */
+    data: stats,
+  } = await useFetch('/api/stats', { lazy: true })
+  // TODO: write them to localStorage
 
   /** Modifier selected by user */
   const mod = useState('mod', () => 0)

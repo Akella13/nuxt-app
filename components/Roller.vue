@@ -1,11 +1,7 @@
 <template>
   <article>
     <h3>Choose your dice:</h3>
-    <!-- REFACT: svg component -->
-    <Vector style="display: none" />
-    <svg class="svg">
-      <use href="#d4" />
-    </svg> 
+    <Vector />
     <ul>
       <li v-for="dice in diceArr">
         <button @click="hand.push(dice)">
@@ -43,10 +39,12 @@
     rollMultiNat,
   } from '~~/types'
   import { rollResult } from '~/utils/index'
-  import Vector from '~~/assets/icons/Die.svg'
+  import Vector from '~~/components/Vector.vue'
 
   const emit = defineEmits<{
-    roll: [rollObj: rollMultiNat],
+    roll: [
+      rollObj: rollMultiNat,
+    ],
   }>()
 
   /** Pull of all possible dice */
@@ -65,12 +63,3 @@
     emit('roll', payload)
   }
 </script>
-
-<style>
-  .svg {
-    width: 100px;
-    height: 100px;
-    stroke: #000;
-    fill: none;
-  }
-</style>
