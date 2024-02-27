@@ -24,9 +24,9 @@ export interface rollMultiNat {
   /** Total natural result */
   totalNat: number
   /** Does this roll have advantage/disadvantage */
-  haveAdv: adv
+  haveAdv?: adv
   /** Natural result of rolling d20s */
-  d20Result: number | number[]
+  d20Result?: number | number[]
 }
 /** DIrty result of rolling multiple die */
 export interface rollMultiDirty extends rollMultiNat {

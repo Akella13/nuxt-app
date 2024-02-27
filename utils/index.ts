@@ -37,7 +37,7 @@ const selectRoll = (
   switch (dieArr.length) {
     case 0:
       throw new Error('No dice rolled => nothing to select from')
-      case 1:
+    case 1:
       // if only one dice was rolled => it is selected by default
       return dieArr[0]
     default:
@@ -124,18 +124,21 @@ export const rollResult = (
     dis: false,
   }
 ) => {
-  /** What kind of d20 roll is this */
-  const haveAdv = whatAdv(oneFromMulti)
+  const { d20s, ...result } = rollNats(dieArr)
 
-  const { d20s, totalNat, rolls } = rollNats(dieArr)
+  // if at least one d20 present
+  if (d20s.length > 0) {
+    /** What kind of d20 roll is this */
+    const haveAdv = whatAdv(oneFromMulti)
+    /** One winning dice from multiple d20s */
+    const d20Result = selectRoll(d20s, haveAdv)
 
-  /** One winning dice from multiple d20s */
-  const d20Result = selectRoll(d20s, haveAdv)
-
-  return {
-    rolls,
-    totalNat,
-    haveAdv,
-    d20Result,
+    return {
+      ...result,
+      haveAdv,
+      d20Result,
+    }
   }
+
+  return result
 }

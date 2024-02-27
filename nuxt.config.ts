@@ -8,20 +8,18 @@ export default defineNuxtConfig({
     plugins: [
       svgLoader({
         svgoConfig: {
-          plugins: [
-            {
-              name: 'preset-default',
-              params: {
-                overrides: {
-                  // https://github.com/svg/svgo/issues/1962
-                  // disable plugins
-                  removeHiddenElems: false, // don't remove invisible elements
-                  removeUselessDefs: false, // don't remove unused symbols
-                  cleanupIds: false // don't remove symbol ids
-                },
+          plugins: [{
+            name: 'preset-default',
+            params: {
+              overrides: {
+                // https://github.com/svg/svgo/issues/1962
+                // disable plugins
+                removeHiddenElems: false, // don't remove invisible elements
+                removeUselessDefs: false, // don't remove unused symbols
+                cleanupIds: false // don't remove symbol ids
               },
             },
-          ],
+          }],
         },
       }),
     ],
