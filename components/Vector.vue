@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-  import type { die } from 'types';
+  import type { die } from '~~/types'
   import Sprite from '~~/assets/icons/Die.svg'
 
   defineProps<{
@@ -18,22 +18,22 @@
   }>()
 </script>
 
-<style>
+<style lang="scss">
   .die {
     width: 100px;
     height: 100px;
     stroke: #000;
     fill: none;
-  }
 
-  .die__container {
-    display: inline-block;
-    position: relative;
-  }
+    &__container {
+      display: inline-block;
+      position: relative;
+    }
 
-  .die__value {
-    position: absolute;
-    left: 45%;
-    top: 45%;
+    &__value {
+      position: absolute;
+      left: 45%;
+      top: 45%;
+    }
   }
 </style>

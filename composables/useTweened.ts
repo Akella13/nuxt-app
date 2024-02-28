@@ -1,5 +1,5 @@
 import gsap from 'gsap'
-import { rollMultiDirty } from '~~/types'
+import type { rollMultiDirty } from '~~/types'
 
 /** Animated state number transition */
 export const useTweened = (toAnimate: ComputedRef<rollMultiDirty>) => {
