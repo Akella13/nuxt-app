@@ -4,8 +4,10 @@
     <ul>
       <li v-for="(roll, index) in lastRoll.rolls" :key="index">
         <i>d{{ roll.dice }}</i>:
-        {{ RollAnimated(index) }}
-        <Vector :dice="roll.dice" />
+        <Vector
+          :dice="roll.dice"
+          :value="RollAnimated(index)" 
+        />
         <b v-if="roll.critical">
           Critical {{ roll.critical }}!
         </b>
