@@ -4,7 +4,7 @@
 
     <ul>
       <li v-for="dice in diceArr">
-        <button @click="hand.push(dice)">
+        <button @click="AddDice(dice)">
           d{{ dice }}
         </button>
       </li>
@@ -25,8 +25,9 @@
     <div v-if="hand.length > 0">
       <h4>Hand:</h4>
       <ul>
-        <li v-for="dice in hand">
-          d{{ dice }}
+				<!-- TODO: render only picked die -->
+        <li v-for="(dice, index) in dicePull">
+          {{ dice }}d{{ index }}
         </li>
       </ul>
       <button @click="RollHand">Roll it!</button>
@@ -51,7 +52,17 @@
 
   /** Pull of all possible dice */
   const diceArr: Set<die> = new Set([4, 6, 8, 10, 12, 20])
-  /** All die picked by hand */
+	// REFAC: create dicePull from diceArr
+  /** All posible dice and their quantities */
+	const dicePull = ref({
+		4: 0,
+		6: 0,
+		8: 0,
+		10: 0,
+		12: 0,
+		20: 0,
+	})
+	/** All die picked by hand */
   const hand = useState<die[]>('hand', () => [])
   /** User has advantage/disadvantage on a d20 rolls */
   const oneFromMulti = reactive({
@@ -64,4 +75,11 @@
     const payload = rollResult(hand.value, oneFromMulti)
     emit('roll', payload)
   }
+
+	/** AddDice */
+	const AddDice = (dice: die) => {
+		// REFAC combine hand and dicePull into one entity
+		hand.value.push(dice)
+		dicePull.value[dice] += 1
+	}
 </script>
