@@ -3,9 +3,9 @@
     <h3>Choose your dice:</h3>
 
     <ul>
-      <li v-for="dice in diceArr">
-        <button @click="AddDice(dice)">
-          d{{ dice }}
+      <li v-for="(amount, type) in diceTower">
+        <button @click="AddDice(type)">
+          d{{ type }}
         </button>
       </li>
     </ul>
@@ -26,7 +26,7 @@
       <h4>Hand:</h4>
       <ul>
 				<!-- TODO: render only picked die -->
-        <li v-for="(dice, index) in dicePull">
+        <li v-for="(dice, index) in diceTower">
           {{ dice }}d{{ index }}
         </li>
       </ul>
@@ -41,6 +41,7 @@
   import type {
     die,
     rollMultiNat,
+    diceTray,
   } from '~~/types'
   import { rollResult } from '~/utils/index'
 
@@ -50,11 +51,8 @@
     ],
   }>()
 
-  /** Pull of all possible dice */
-  const diceArr: Set<die> = new Set([4, 6, 8, 10, 12, 20])
-	// REFAC: create dicePull from diceArr
-  /** All posible dice and their quantities */
-	const dicePull = ref({
+  /** All posible dice and their amounts */
+	const diceTower = ref<diceTray>({
 		4: 0,
 		6: 0,
 		8: 0,
@@ -76,10 +74,15 @@
     emit('roll', payload)
   }
 
-	/** AddDice */
-	const AddDice = (dice: die) => {
-		// REFAC combine hand and dicePull into one entity
-		hand.value.push(dice)
-		dicePull.value[dice] += 1
+	/** Add dice to hand */
+	const AddDice = (dice: die | string) => {
+    // HACK: casting type because keys of and object are strings
+    let diceCast = dice
+    if (typeof diceCast === 'string') {
+      diceCast = Number(dice) as die
+    }
+		// REFAC combine hand and diceTower into one entity
+		hand.value.push(diceCast)
+		diceTower.value[diceCast] += 1
 	}
 </script>
