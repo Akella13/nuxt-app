@@ -63,7 +63,7 @@
 		20: 0,
 	})
 	/** All die picked by hand */
-  const hand = useState<die[]>('hand', () => [])
+  const hand = ref<die[]>([])
   /** User has advantage/disadvantage on a d20 rolls */
   const oneFromMulti = reactive({
     adv: false,

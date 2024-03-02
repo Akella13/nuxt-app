@@ -1,6 +1,7 @@
 import svgLoader from 'vite-svg-loader'
 
 export default defineNuxtConfig({
+  devtools: { enabled: true },
   typescript: {
     typeCheck: 'build',
   },
