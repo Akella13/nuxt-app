@@ -22,7 +22,7 @@
       </label>
     </div>
 
-    <div v-if="hand.length > 0">
+    <div v-if="!handEmpty">
       <h4>Hand:</h4>
       <ul>
 				<!-- TODO: render only picked die -->
@@ -31,7 +31,7 @@
         </li>
       </ul>
       <button @click="RollHand">Roll it!</button>
-      <button @click="hand = []">Clear hand</button>
+      <button @click="ClearHand">Clear hand</button>
     </div>
 
   </article>
@@ -60,8 +60,8 @@
 		12: 0,
 		20: 0,
 	})
-	/** All die picked by hand */
-  const hand = ref<die[]>([])
+  /** is hand empty of all die */
+  const handEmpty = ref(true)
   /** User has advantage/disadvantage on a d20 rolls */
   const oneFromMulti = reactive({
     adv: false,
@@ -70,19 +70,35 @@
 
   /** Roll all die picked by hand */
   const RollHand = () => {
-    const payload = rollResult(hand.value, oneFromMulti)
+    const hand: die[] = []
+    for (const type in diceTower.value) {
+      const typeCast = Number(type) as die
+      const amount = diceTower.value[typeCast]
+      if (amount > 0) {
+        for (let i = 0; i < amount; i++) {
+          hand.push(typeCast)
+        }
+      }
+    }
+    const payload = rollResult(hand, oneFromMulti)
     emit('roll', payload)
   }
 
 	/** Add dice to hand */
 	const AddDice = (dice: die | string) => {
     // HACK: casting type because keys of and object are strings
-    let diceCast = dice
-    if (typeof diceCast === 'string') {
-      diceCast = Number(dice) as die
-    }
-		// REFAC combine hand and diceTower into one entity
-		hand.value.push(diceCast)
+    let diceCast = Number(dice) as die
 		diceTower.value[diceCast] += 1
+    handEmpty.value = handEmpty.value && false
 	}
+
+  /** Clear hand of all dice */
+  const ClearHand = () => {
+    handEmpty.value = true
+    // reset all dice amounts
+    for (const amount in diceTower.value) {
+      const amountCast = Number(amount) as die
+      diceTower.value[amountCast] = 0
+    }
+  }
 </script>
