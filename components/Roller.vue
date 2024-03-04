@@ -57,13 +57,14 @@
   /** Hand die grouped by descending order */
   const handFormatted = computed(() => {
     /** Object of hand die grouped by type */
-    const diceTray = hand.value.reduce((acc: diceTray, val) => {
-      // add 1 to amount, else set it to 1
-      acc[val] = (acc[val] || 0) + 1
+    const diceTray = hand.value.reduce((acc: any, val) => {
+      /** Find group of a dice type */
+      const group = acc.find(([type]: [die]) => type === val)
+      // add 1 to amount or create new group with dice type
+      group ? group[1] += 1 : acc.push([val, 1])
       return acc
-    }, {})
-    // HACK: v-for renders object by Object.keys() => turn it to array and reverse it
-    return Object.entries(diceTray).reverse()
+    }, [])
+    return diceTray
   })
   /** User has advantage/disadvantage on a d20 rolls */
   const oneFromMulti = reactive({
