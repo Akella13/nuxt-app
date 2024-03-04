@@ -4,7 +4,7 @@
 
     <ul>
       <li v-for="dice in diceArr">
-        <button @click="hand.push(dice)">
+        <button @click="AddDice(dice)">
           d{{ dice }}
         </button>
       </li>
@@ -25,8 +25,8 @@
     <div v-if="hand.length > 0">
       <h4>Hand:</h4>
       <ul>
-        <li v-for="[amount, type] in handFormatted.reverse()">
-          {{ type }}d{{ amount }}
+        <li v-for="[type, amount] in handFormatted">
+          {{ amount }}d{{ type }}
         </li>
       </ul>
       <button @click="RollHand">Roll it!</button>
@@ -52,9 +52,9 @@
 
   /** Pull of all possible dice */
   const diceArr: Set<die> = new Set([4, 6, 8, 10, 12, 20])
-	/** All die picked by hand */
+	/** All die picked by hand by descending order */
   const hand = ref<die[]>([])
-  /** Hand die grouped & sorted by descending order */
+  /** Hand die grouped by descending order */
   const handFormatted = computed(() => {
     /** Object of hand die grouped by type */
     const diceTray = hand.value.reduce((acc: diceTray, val) => {
@@ -73,9 +73,14 @@
 
   /** Roll all die picked by hand */
   const RollHand = () => {
-    /** Hand die sorted by descending order */
-    const handSorted = hand.value.sort((i,j) => j - i)
-    const payload = rollResult(handSorted, oneFromMulti)
-    emit('roll', payload)
+    emit('roll', rollResult(hand.value, oneFromMulti))
   }
+
+  /** Add dice to hand in descending order */
+	const AddDice = (dice: die) => {
+    /** Last element that is greater than dice to be added */
+    const lastIndex = hand.value.findLastIndex(pickedDice => pickedDice > dice)
+    /** Insert dice right after last greater picked dice */
+    hand.value.splice(lastIndex + 1, 0, dice)
+	}
 </script>
