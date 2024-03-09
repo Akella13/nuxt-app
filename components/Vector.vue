@@ -1,5 +1,6 @@
 <template>
   <div class="die__container">
+    <!-- TODO: insert only one sprite into dom -->
     <Sprite style="display: none" />
     <svg class="die">
       <use :href="`#d${dice}`" />

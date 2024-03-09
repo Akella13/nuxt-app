@@ -4,11 +4,6 @@ export type adv = 'adv' | 'dis' | 'straight'
 /** Number of sides on a dice */
 export type die = 4 | 6 | 8 | 10 | 12 | 20
 
-/** Object containing 'die' as its keys */
-export type diceTray = {
-  [dice in die]?: number
-}
-
 /** Critical value */
 export type crit = 'fail' | 'success'
 

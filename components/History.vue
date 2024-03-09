@@ -2,10 +2,11 @@
   <div>
     <h3>Your last roll:</h3>
     <ul>
-      <li v-for="(roll, index) in lastRoll.rolls" :key="index">
+      <li v-for="(roll, index) in lastRoll.rolls"
+        :key="index"
+      >
         <i>d{{ roll.dice }}</i>:
-        <Vector
-          :dice="roll.dice"
+        <Vector :dice="roll.dice"
           :value="RollAnimated(index)" 
         />
         <b v-if="roll.critical">
@@ -34,7 +35,9 @@
         <th>Total</th>
       </thead>
       <tbody>
-        <tr v-for="(rollMulti, index) in [...rollHistory].reverse()" :key="index">
+        <tr v-for="(rollMulti, index) in rollHistory.toReversed()"
+          :key="index"
+        >
           <td colspan="2">
             <tr v-for="roll in rollMulti.rolls">
               <td>d{{ roll.dice }}</td>
@@ -42,6 +45,7 @@
             </tr>
           </td>
           <td>{{ rollMulti.mod }}</td>
+          <!-- TODO: total should be represented as: total of d20s and a total of damage die -->
           <td>{{ rollMulti.totalDirty }}</td>
         </tr>
       </tbody>
