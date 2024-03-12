@@ -1,17 +1,25 @@
 <template>
   <div>
     <h3>Your last roll:</h3>
+    <Sprite style="display: none" />
     <ul>
-      <li v-for="(roll, index) in lastRoll.rolls"
-        :key="index"
+      <li v-for="group in lastRollGrouped"
+        :key="group[0]"
       >
-        <i>d{{ roll.dice }}</i>:
-        <Vector :dice="roll.dice"
-          :value="RollAnimated(index)" 
-        />
-        <b v-if="roll.critical">
-          Critical {{ roll.critical }}!
-        </b>
+        <ul>
+          <li v-for="(roll, index) in group[1]"
+            :key="`${roll.dice}-${index}`"
+          >
+            <i>d{{ roll.dice }}</i>:
+            <!-- BUG: RollAnimated returns undefined -->
+            <Vector :dice="roll.dice"
+              :value="RollAnimated(roll.natural)" 
+            />
+            <b v-if="roll.critical">
+              Critical {{ roll.critical }}!
+            </b>
+          </li>
+        </ul>
       </li>
     </ul>
     <p>
@@ -55,8 +63,10 @@
 
 <script lang="ts" setup>
   import type {
+    roll,
     rollMultiDirty,
   } from '~~/types'
+  import Sprite from '~~/assets/icons/Die.svg'
   import Vector from '~~/components/Vector.vue'
 
   const props = defineProps<{
@@ -66,6 +76,12 @@
   // HACK: array.at() returns undefined if index < -array.length or index >= array.length
   /** Last roll result */
   const lastRoll = computed(() => props.rollHistory[props.rollHistory.length - 1])
+  // TODO: lastRoll should be already grouped to omit extra computations
+  /** lastRoll grouped by dice type */
+  const lastRollGrouped = computed(() => {
+    const rolls = lastRoll.value.rolls
+    return Map.groupBy(rolls, (roll: roll) => roll.dice)
+  })
   /** Array of tweened natural last roll numbers */
   const tweened = useTweened(lastRoll)
 
