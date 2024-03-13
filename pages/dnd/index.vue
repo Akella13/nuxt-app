@@ -2,32 +2,16 @@
   <section>
     <Stats />
 
-    <Roller @roll="UpdateHistory" />
+    <Roller @first-roll.once="historyVisible = true" />
 
-    <History v-if="rollHistory.length"
-      :roll-history="rollHistory"
-    />
+    <History v-if="historyVisible" />
   </section>
 </template>
 
 <script setup lang="ts">
-  import type { rollMultiDirty, rollMultiNat } from '~~/types'
-
   definePageMeta({
     title: 'Dice roller'
   })
 
-  /** Array of dice roll results */
-  const rollHistory = useState<rollMultiDirty[]>('rollHistory', () => [])
-  /** Modifier selected by user */
-  const mod = useState<number>('mod')
-
-  /** Add roll to roll history */
-  const UpdateHistory = (payload: rollMultiNat) => {
-    rollHistory.value.push({
-      ...payload,
-      mod: mod.value,
-      totalDirty: payload.totalNat + mod.value,
-    })
-  }
+  const historyVisible = ref(false)
 </script>

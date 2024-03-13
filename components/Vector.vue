@@ -12,8 +12,17 @@
 
   defineProps<{
     dice: die,
-    value: string,
+    value: string | number,
   }>()
+
+  // /** Array of tweened natural last roll numbers */
+  // const tweened = useTweened(lastRoll)
+
+  // // REFACT: move RollAnimated to <Vector>
+  // /** Polished number of a single roll for render */
+  // const RollAnimated = (index: number) => {
+  //   return tweened[index]?.number?.toFixed(0)
+  // }
 </script>
 
 <style lang="scss">

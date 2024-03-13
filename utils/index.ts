@@ -3,6 +3,7 @@ import type {
   die,
   crit,
   roll,
+  rollMultiNat,
 } from '~~/types'
 
 /** Modifier of a characteristic stat */
@@ -123,7 +124,7 @@ export const rollResult = (
     adv: false,
     dis: false,
   }
-) => {
+): rollMultiNat => {
   const { d20s, ...result } = rollNats(dieArr)
 
   // if at least one d20 present

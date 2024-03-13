@@ -44,11 +44,9 @@
   } from '~~/types'
   import { rollResult } from '~/utils/index'
 
-  const emit = defineEmits<{
-    roll: [
-      rollObj: rollMultiNat,
-    ],
-  }>()
+  const emit = defineEmits(['firstRoll'])
+  /** last roll */
+  const useLastRoll = useState<rollMultiNat>('lastRoll')
 
   /** Pull of all possible dice */
   const diceArr: Set<die> = new Set([4, 6, 8, 10, 12, 20])
@@ -72,7 +70,8 @@
 
   /** Roll all die picked by hand */
   const RollHand = () => {
-    emit('roll', rollResult(hand.value, oneFromMulti))
+    useLastRoll.value = rollResult(hand.value, oneFromMulti)
+    emit('firstRoll')
   }
 
   /** Add dice to hand in descending order */

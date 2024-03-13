@@ -2,35 +2,30 @@
   <div>
     <h3>Your last roll:</h3>
     <Sprite style="display: none" />
-    <ul>
-      <li v-for="group in lastRollGrouped"
-        :key="group[0]"
-      >
-        <ul>
-          <li v-for="(roll, index) in group[1]"
-            :key="`${roll.dice}-${index}`"
-          >
-            <i>d{{ roll.dice }}</i>:
-            <!-- BUG: RollAnimated returns undefined -->
-            <Vector :dice="roll.dice"
-              :value="RollAnimated(roll.natural)" 
-            />
-            <b v-if="roll.critical">
-              Critical {{ roll.critical }}!
-            </b>
-          </li>
-        </ul>
-      </li>
-    </ul>
-    <p>
-      <span>{{ lastRoll.mod >= 0 ? '+' : '' }}</span>
-      <span>{{ lastRoll.mod }}</span>
-      <span> = {{ lastRoll.totalDirty }}</span>
-    </p>
-    <p v-if="lastRoll.d20Result && lastRoll.haveAdv">
-      {{ lastRoll.haveAdv }} on d20:
-      {{ lastRoll.d20Result }}
-    </p>
+    <div v-if="lastRoll">
+      <ul>
+        <li v-for="(roll, index) in lastRoll.rolls"
+          :key="index"
+        >
+          <i>d{{ roll.dice }}</i>:
+          <Vector :dice="roll.dice"
+            :value="roll.natural" 
+          />
+          <b v-if="roll.critical">
+            Critical {{ roll.critical }}!
+          </b>
+        </li>
+      </ul>
+      <p>
+        <span>{{ lastRoll.mod >= 0 ? '+' : '' }}</span>
+        <span>{{ lastRoll.mod }}</span>
+        <span> = {{ lastRoll.totalDirty }}</span>
+      </p>
+      <p v-if="lastRoll.d20Result && lastRoll.haveAdv">
+        {{ lastRoll.haveAdv }} on d20:
+        {{ lastRoll.d20Result }}
+      </p>
+    </div>
   </div>
   
   <details>
@@ -43,7 +38,7 @@
         <th>Total</th>
       </thead>
       <tbody>
-        <tr v-for="(rollMulti, index) in rollHistory.toReversed()"
+        <tr v-for="(rollMulti, index) in rollHistory"
           :key="index"
         >
           <td colspan="2">
@@ -63,30 +58,34 @@
 
 <script lang="ts" setup>
   import type {
-    roll,
     rollMultiDirty,
+    rollMultiNat,
   } from '~~/types'
   import Sprite from '~~/assets/icons/Die.svg'
   import Vector from '~~/components/Vector.vue'
 
-  const props = defineProps<{
-    rollHistory: rollMultiDirty[],
-  }>()
+  /** Last roll object */
+  const useLastRoll = useState<rollMultiNat>('lastRoll')
+  /** Modifier selected by user */
+  const useMod = useState<number>('mod')
 
-  // HACK: array.at() returns undefined if index < -array.length or index >= array.length
-  /** Last roll result */
-  const lastRoll = computed(() => props.rollHistory[props.rollHistory.length - 1])
-  // TODO: lastRoll should be already grouped to omit extra computations
-  /** lastRoll grouped by dice type */
-  const lastRollGrouped = computed(() => {
-    const rolls = lastRoll.value.rolls
-    return Map.groupBy(rolls, (roll: roll) => roll.dice)
-  })
-  /** Array of tweened natural last roll numbers */
-  const tweened = useTweened(lastRoll)
+  /** Last roll object with fields for rendering */
+  const lastRoll = ref<rollMultiDirty>()
+  /** History of all rolls */
+  const rollHistory = ref<rollMultiDirty[]>([])
 
-  /** Polished number of a single roll for render */
-  const RollAnimated = (index: number) => {
-    return tweened[index]?.number?.toFixed(0)
-  }
+  // computed will re-evaluate if mod changes => $watch only one dependency change
+  watch(useLastRoll, newValue => {
+    /** Roll object mutated with fields for rendering */
+    const rollToAdd: rollMultiDirty = {
+      ...newValue,
+      mod: useMod.value,
+      totalDirty: newValue.totalNat + useMod.value,
+    }
+    // update local state lastRoll
+    lastRoll.value = rollToAdd
+    rollHistory.value.unshift(rollToAdd)
+  },
+  // triggering $watch right after component mounts
+  { immediate: true })
 </script>
