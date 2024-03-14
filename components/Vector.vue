@@ -3,26 +3,19 @@
     <svg class="die">
       <use :href="`#d${dice}`" />
     </svg> 
-    <div class="die__value">{{ value }}</div>
+    <div class="die__value">
+      {{ tweenedNumber.value.toFixed(0) }}
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import type { die } from '~~/types'
+  import type { Props } from '~/composables/useTweened';
 
-  defineProps<{
-    dice: die,
-    value: string | number,
-  }>()
+  const props = defineProps<Props>()
 
-  // /** Array of tweened natural last roll numbers */
-  // const tweened = useTweened(lastRoll)
-
-  // // REFACT: move RollAnimated to <Vector>
-  // /** Polished number of a single roll for render */
-  // const RollAnimated = (index: number) => {
-  //   return tweened[index]?.number?.toFixed(0)
-  // }
+  /** tweened natural roll value */
+  const tweenedNumber = useTweened(props)
 </script>
 
 <style lang="scss">

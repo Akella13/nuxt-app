@@ -1,29 +1,28 @@
 import gsap from 'gsap'
-import type { rollMultiDirty } from '~~/types'
+import type { die } from '~~/types'
+
+export interface Props{
+  dice: die
+  value: number
+}
 
 /** Animated state number transition */
-export const useTweened = (toAnimate: ComputedRef<rollMultiDirty>) => {
-  /** Reactive array of numbers, waiting to be animated */
-  const tweenedRolls = reactive<{ number: number }[]>([])
+export const useTweened = (props: Props) => {
+  /** reactive wrapper for a number to tween */
+  const tweenedNumber = reactive({
+    value: 0,
+  })
 
-  // each time lastRoll changes => update tweenedRolls
-  watch(toAnimate, (lastRoll: rollMultiDirty) => {
-    // cycle through natural rolls
-    lastRoll.rolls.forEach((roll, index: number) => {
-      // if reactive object is not initialized, do so
-      if (!tweenedRolls[index]) {
-        // assign reactive object with a number
-        tweenedRolls[index] = { number: 0 }
-      }
-      // animate number to a value of natural roll
-      gsap.to(tweenedRolls[index], {
-        duration: 0.5,
-        number: roll.natural || 0
-      })
+  // $watch reactive object to change => trigger tween()
+  watch(props, ({ value }) => {
+    gsap.to(tweenedNumber, {
+      duration: 0.5,
+      value,
     })
   },
-  // eager watcher: because <History> renders conditionally
-  { immediate: true })
+  // invoke it immedeatly after component mounts for initial animation
+  { immediate: true }
+  )
 
-  return tweenedRolls
+  return tweenedNumber
 }
