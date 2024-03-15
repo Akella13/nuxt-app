@@ -10,12 +10,18 @@
 </template>
 
 <script lang="ts" setup>
-  import type { Props } from '~/composables/useTweened';
+  import type { die } from '~~/types'
 
-  const props = defineProps<Props>()
+  const props = defineProps<{
+    dice: die,
+    value: number,
+  }>()
+
+  /** props must be extendable => new reactive entity that will be watched for changes */
+  const valueWatcher = computed(() => ({ value: props.value }))
 
   /** tweened natural roll value */
-  const tweenedNumber = useTweened(props)
+  const tweenedNumber = useTweened(valueWatcher)
 </script>
 
 <style lang="scss">

@@ -1,20 +1,14 @@
 import gsap from 'gsap'
-import type { die } from '~~/types'
-
-export interface Props{
-  dice: die
-  value: number
-}
 
 /** Animated state number transition */
-export const useTweened = (props: Props) => {
+export const useTweened = (watcher: ComputedRef<{ value: number }>) => {
   /** reactive wrapper for a number to tween */
   const tweenedNumber = reactive({
     value: 0,
   })
 
   // $watch reactive object to change => trigger tween()
-  watch(props, ({ value }) => {
+  watch(watcher, ({ value }) => {
     gsap.to(tweenedNumber, {
       duration: 0.5,
       value,
