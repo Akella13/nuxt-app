@@ -4,7 +4,6 @@
 
     <ul>
       <li v-for="dice in diceArr">
-        <!-- TODO: restrict adding third d20 -->
         <button @click="AddDice(dice)">
           d{{ dice }}
         </button>
@@ -26,8 +25,8 @@
     <div v-if="hand.length > 0">
       <h4>Hand:</h4>
       <ul>
-        <li v-for="[type, amount] in handFormatted">
-          {{ amount }}d{{ type }}
+        <li v-for="[type, group] in handFormatted">
+          {{ group.length }}d{{ type }}
         </li>
       </ul>
       <button @click="RollHand">Roll it!</button>
@@ -53,14 +52,8 @@
 	/** All die picked by hand by descending order */
   const hand = ref<die[]>([])
   /** Hand die grouped by descending order */
-  const handFormatted = computed(() => {
-    return hand.value.reduce((acc: any, val) => {
-      /** Find group of a dice type */
-      const group = acc.find(([type]: [die]) => type === val)
-      // add 1 to amount or create new group with dice type
-      group ? group[1] += 1 : acc.push([val, 1])
-      return acc
-    }, [])
+  const handFormatted = computed<Map<die, die[]>>(() => {
+   return Map.groupBy(hand.value, (val: die) => val)
   })
   /** User has advantage/disadvantage on a d20 rolls */
   const oneFromMulti = reactive({
@@ -70,7 +63,8 @@
 
   /** Roll all die picked by hand */
   const RollHand = () => {
-    useLastRoll.value = rollResult(hand.value, oneFromMulti)
+    const result = rollResult(handFormatted.value, oneFromMulti)
+    useLastRoll.value = result
     emit('firstRoll')
   }
 

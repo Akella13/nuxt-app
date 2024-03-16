@@ -78,40 +78,49 @@ const rollNats = (dieArr: die[]) => {
     /** Natural result of a single roll */
     const natural = rollDie(val)
     /** Accumulated sum of natural rolls by hand */
-    const totalNat = acc.totalNat + natural
+    // const totalNat = acc.totalNat + natural
     /** Critical result of a single d20 roll */
     let critical: crit | undefined = undefined
     /** Accumulated d20s picked by hand */
-    const d20s = [...acc.d20s]
-    if (val === 20) {
-      // add d20 roll result to d20s array
-      d20s.push(natural)
-      // if roll is critical
-      if (natural === 1 || natural === 20) {
-        // mutate roll: add crit
-        critical = natural === 1 ? 'fail' : 'success'
-      }
-    }
+    // const d20s = [...acc.d20s]
+    // if (val === 20) {
+    //   // add d20 roll result to d20s array
+    //   d20s.push(natural)
+    //   // if roll is critical
+    //   if (natural === 1 || natural === 20) {
+    //     // mutate roll: add crit
+    //     critical = natural === 1 ? 'fail' : 'success'
+    //   }
+    // }
     /** Accumulated rolls array */
-    const rolls = [
-      ...acc.rolls,
-      {
-        dice: val,
-        natural,
-        ...(critical && { critical }),
-      },
-    ]
+    // const rolls = [
+    //   ...acc.rolls,
+    //   {
+    //     dice: val,
+    //     natural,
+    //     ...(critical && { critical }),
+    //   },
+    // ]
+    // add dice to group
+    acc.rolls.push({
+      natural,
+      ...(critical && { critical }),
+    })
+    // add result to group totalNat
+    acc.totalNat += natural
+    return acc
     // accumulator return value
     return {
       totalNat,
       d20s,
       rolls,
+      rollsGrouped,
     }
   }, {
     /** Sum of natural rolls by hand */
     totalNat: 0,
-    /** Array of fresh rolled d20s */
-    d20s: <number[]>[],
+    // /** Array of fresh rolled d20s */
+    // d20s: <number[]>[],
     /** Array of roll results */
     rolls: <roll[]>[],
   })
@@ -119,27 +128,35 @@ const rollNats = (dieArr: die[]) => {
 
 /** Result of rolling multiple die from a hand */
 export const rollResult = (
-  dieArr: die[],
+  dieMap: Map<die, die[]>,
   oneFromMulti = {
     adv: false,
     dis: false,
   }
 ): rollMultiNat => {
-  const { d20s, ...result } = rollNats(dieArr)
+  // create new writable Map()
+  const writableMap = new Map(dieMap) 
+  writableMap.forEach((diceGroup, key, map) => {
+    const result = rollNats(diceGroup)
+    map.set(key, result)
+  })
+  return writableMap
+  // const { d20s, ...result } = rollNats(dieMap)
+  // console.log(result)
 
-  // if at least one d20 present
-  if (d20s.length > 0) {
-    /** What kind of d20 roll is this */
-    const haveAdv = whatAdv(oneFromMulti)
-    /** One winning dice from multiple d20s */
-    const d20Result = selectRoll(d20s, haveAdv)
+  // // if at least one d20 present
+  // if (d20s.length > 0) {
+  //   /** What kind of d20 roll is this */
+  //   const haveAdv = whatAdv(oneFromMulti)
+  //   /** One winning dice from multiple d20s */
+  //   const d20Result = selectRoll(d20s, haveAdv)
 
-    return {
-      ...result,
-      haveAdv,
-      d20Result,
-    }
-  }
+  //   return {
+  //     ...result,
+  //     haveAdv,
+  //     d20Result,
+  //   }
+  // }
 
-  return result
+  // return result
 }

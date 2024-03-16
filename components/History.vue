@@ -4,27 +4,33 @@
     <Sprite style="display: none" />
     <div v-if="lastRoll">
       <ul>
-        <li v-for="(roll, index) in lastRoll.rolls"
-          :key="index"
+        <li v-for="[dice, group] in lastRoll"
+          :key="dice"
         >
-          <i>d{{ roll.dice }}</i>:
-          <Vector :dice="roll.dice"
-            :value="roll.natural" 
-          />
-          <b v-if="roll.critical">
-            Critical {{ roll.critical }}!
-          </b>
+        <h4>d{{ dice }}</h4>
+        <ul>
+          <li v-for="(roll, index) in group.rolls"
+            :key="index"
+          >
+            <Vector :dice="dice"
+              :value="roll.natural" 
+            />
+            <!-- <b v-if="roll.critical">
+              Critical {{ roll.critical }}!
+            </b> -->
+          </li>
+        </ul>
+        <p>
+          <span>{{ group.mod >= 0 ? '+' : '' }}</span>
+          <span>{{ group.mod }}</span>
+          <span> = {{ group.totalDirty }}</span>
+        </p>
+        <!-- <p v-if="group.d20Result && group.haveAdv">
+          {{ group.haveAdv }} on d20:
+          {{ group.d20Result }}
+        </p> -->
         </li>
       </ul>
-      <p>
-        <span>{{ lastRoll.mod >= 0 ? '+' : '' }}</span>
-        <span>{{ lastRoll.mod }}</span>
-        <span> = {{ lastRoll.totalDirty }}</span>
-      </p>
-      <p v-if="lastRoll.d20Result && lastRoll.haveAdv">
-        {{ lastRoll.haveAdv }} on d20:
-        {{ lastRoll.d20Result }}
-      </p>
     </div>
   </div>
   
@@ -32,24 +38,35 @@
     <summary>Roll log</summary>
     <table>
       <thead>
-        <th>Die</th>
-        <th>Naturals</th>
-        <th>Modifier</th>
-        <th>Total</th>
+        <th>Roll order</th>
+        <th>Roll group</th>
       </thead>
       <tbody>
-        <tr v-for="(rollMulti, index) in rollHistory"
+        <tr v-for="(rolledHand, index) in rollHistory"
           :key="index"
         >
-          <td colspan="2">
-            <tr v-for="roll in rollMulti.rolls">
-              <td>d{{ roll.dice }}</td>
-              <td>{{ roll.natural }}</td>
-            </tr>
+          <td>{{ rollHistory.length - index }}</td>
+          <td>
+            <thead>
+              <th>Dice</th>
+              <th>Naturals</th>
+              <th>Modifier</th>
+              <th>Total</th>
+            </thead>
+            <tbody>
+              <tr v-for="[dice, group] in rolledHand">
+                <td>d{{ dice }}</td>
+                <td>
+                  <tr v-for="roll in group.rolls">
+                    <td>{{ roll.natural }}</td>
+                  </tr>
+                </td>
+                <td>{{ group.mod }}</td>
+                <td>{{ group.totalDirty }}</td>
+              </tr>
+            </tbody>
           </td>
-          <td>{{ rollMulti.mod }}</td>
           <!-- TODO: total should be represented as: total of d20s and a total of damage die -->
-          <td>{{ rollMulti.totalDirty }}</td>
         </tr>
       </tbody>
     </table>
@@ -65,7 +82,7 @@
   import Vector from '~~/components/Vector.vue'
 
   /** Last roll object */
-  const useLastRoll = useState<rollMultiNat>('lastRoll')
+  const useLastRoll = useState('lastRoll')
   /** Modifier selected by user */
   const useMod = useState<number>('mod')
 
@@ -77,15 +94,20 @@
   // computed will re-evaluate if mod changes => $watch only one dependency change
   watch(useLastRoll, newValue => {
     /** Roll object mutated with fields for rendering */
-    const rollToAdd: rollMultiDirty = {
-      ...newValue,
-      mod: useMod.value,
-      totalDirty: newValue.totalNat + useMod.value,
-    }
+    newValue.forEach(group => {
+      group.mod = useMod.value
+      group.totalDirty = group.totalNat + useMod.value
+      })
     // update local state lastRoll
-    lastRoll.value = rollToAdd
-    rollHistory.value.unshift(rollToAdd)
+    lastRoll.value = newValue
+    rollHistory.value.unshift(newValue)
   },
   // triggering $watch right after component mounts
   { immediate: true })
 </script>
+
+<style>
+  table, th, td {
+    border: 1px solid;
+  }
+</style>

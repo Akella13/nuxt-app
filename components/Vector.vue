@@ -1,12 +1,12 @@
 <template>
-  <div class="die__container">
+  <figure class="die__container">
     <svg class="die">
       <use :href="`#d${dice}`" />
     </svg> 
-    <div class="die__value">
+    <figcaption class="die__value">
       {{ tweenedNumber.value.toFixed(0) }}
-    </div>
-  </div>
+    </figcaption>
+  </figure>
 </template>
 
 <script lang="ts" setup>
