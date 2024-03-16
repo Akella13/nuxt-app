@@ -44,7 +44,8 @@
   import { rollResult } from '~/utils/index'
 
   const emit = defineEmits(['firstRoll'])
-  /** last roll */
+
+  /** Last roll grouped by dice type */
   const useLastRoll = useState<rollMultiNat>('lastRoll')
 
   /** Pull of all possible dice */
@@ -53,7 +54,8 @@
   const hand = ref<die[]>([])
   /** Hand die grouped by descending order */
   const handFormatted = computed<Map<die, die[]>>(() => {
-   return Map.groupBy(hand.value, (val: die) => val)
+    // NOTE: vscode highlights .groupBy()
+    return Map.groupBy(hand.value, (val: die) => val)
   })
   /** User has advantage/disadvantage on a d20 rolls */
   const oneFromMulti = reactive({
