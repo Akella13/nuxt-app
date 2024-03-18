@@ -75,32 +75,36 @@
 
 <script lang="ts" setup>
   import type {
-    rollMultiDirty,
-    rollMultiNat,
+    dirtyCollection,
+    naturalCollection,
   } from '~~/types'
   import Sprite from '~~/assets/icons/Die.svg'
   import Vector from '~~/components/Vector.vue'
 
   /** Last roll object */
-  const useLastRoll = useState('lastRoll')
+  const useLastRoll = useState<naturalCollection>('lastRoll')
   /** Modifier selected by user */
   const useMod = useState<number>('mod')
 
   /** Last roll object with fields for rendering */
-  const lastRoll = ref<rollMultiDirty>()
+  const lastRoll = ref<dirtyCollection>()
   /** History of all rolls */
-  const rollHistory = ref<rollMultiDirty[]>([])
+  const rollHistory = ref<dirtyCollection[]>([])
 
   // computed will re-evaluate if mod changes => $watch only one dependency change
   watch(useLastRoll, newValue => {
+    const writableMap: dirtyCollection = new Map()
     /** Roll object mutated with fields for rendering */
-    newValue.forEach(group => {
-      group.mod = useMod.value
-      group.totalDirty = group.totalNat + useMod.value
+    newValue.forEach((group, diceType) => {
+      writableMap.set(diceType, {
+        ...group,
+        mod: useMod.value,
+        totalDirty: group.totalNat + useMod.value,
       })
+    })
     // update local state lastRoll
-    lastRoll.value = newValue
-    rollHistory.value.unshift(newValue)
+    lastRoll.value = writableMap
+    rollHistory.value.unshift(writableMap)
   },
   // triggering $watch right after component mounts
   { immediate: true })

@@ -7,14 +7,11 @@ export type die = 4 | 6 | 8 | 10 | 12 | 20
 /** Critical value */
 export type crit = 'fail' | 'success'
 
+// TODO: flatten roll
 /** Result of rolling a single dice */
 export interface roll {
-  /** Number of sides on a dice */
-  dice: die
   /** Natural result of a roll */
   natural: number
-  /** Critical failure or success */
-  critical?: crit
 }
 
 /** Result of rolling multiple die */
@@ -23,15 +20,18 @@ export interface rollMultiNat {
   rolls: roll[]
   /** Total natural result */
   totalNat: number
-  /** Does this roll have advantage/disadvantage */
-  haveAdv?: adv
-  /** Natural result of rolling d20s */
-  d20Result?: number | number[]
+  /** Critical failure or success */
+  critical?: crit
 }
-/** DIrty result of rolling multiple die */
+/** Dirty result of rolling multiple die */
 export interface rollMultiDirty extends rollMultiNat {
   /** Modifier */
   mod: number
   /** Total result with modifier */
   totalDirty: number
 }
+
+// TODO: declare generic
+export type naturalCollection = Map<die, rollMultiNat>
+
+export type dirtyCollection = Map<die, rollMultiDirty>
