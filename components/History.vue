@@ -66,7 +66,6 @@
               </tr>
             </tbody>
           </td>
-          <!-- TODO: total should be represented as: total of d20s and a total of damage die -->
         </tr>
       </tbody>
     </table>
@@ -75,25 +74,26 @@
 
 <script lang="ts" setup>
   import type {
-    dirtyCollection,
-    naturalCollection,
+    rollMultiNat,
+    rollMultiDirty,
+    diceMap,
   } from '~~/types'
   import Sprite from '~~/assets/icons/Die.svg'
   import Vector from '~~/components/Vector.vue'
 
   /** Last roll object */
-  const useLastRoll = useState<naturalCollection>('lastRoll')
+  const useLastRoll = useState<diceMap<rollMultiNat>>('lastRoll')
   /** Modifier selected by user */
   const useMod = useState<number>('mod')
 
   /** Last roll object with fields for rendering */
-  const lastRoll = ref<dirtyCollection>()
+  const lastRoll = ref<diceMap<rollMultiDirty>>()
   /** History of all rolls */
-  const rollHistory = ref<dirtyCollection[]>([])
+  const rollHistory = ref<diceMap<rollMultiDirty>[]>([])
 
   // computed will re-evaluate if mod changes => $watch only one dependency change
   watch(useLastRoll, newValue => {
-    const writableMap: dirtyCollection = new Map()
+    const writableMap: diceMap<rollMultiDirty> = new Map()
     /** Roll object mutated with fields for rendering */
     newValue.forEach((group, diceType) => {
       writableMap.set(diceType, {

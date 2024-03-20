@@ -2,7 +2,7 @@ import type {
   adv,
   die,
   rollMultiNat,
-  naturalCollection,
+  diceMap,
 } from '~~/types'
 
 /** Modifier of a characteristic stat */
@@ -15,18 +15,15 @@ const rollDie = (sides: die = 20) => Math.round(Math.random() * (sides - 1)) + 1
 const whatAdv = ({
   adv = false,
   dis = false,
-}) => {
-  let haveAdv: adv
+}): adv => {
   if (adv && dis) {
-    haveAdv = 'straight'
+    return 'straight'
   } else if (adv) {
-    haveAdv = 'adv'
+    return 'adv'
   } else if (dis) {
-    haveAdv = 'dis'
-  } else {
-    haveAdv = 'straight'
+    return 'dis'
   }
-  return haveAdv
+  return 'straight'
 }
 
 /** Select one roll from multiple within one dice type */
@@ -71,7 +68,6 @@ const rollGroup20 = (dieArr: die[], adv: adv = 'straight') => {
     } else if (natural === 20) {
       acc.critical = 'success'
     }
-    // TODO: assign totalNat using whatAdv & selectRoll
     const selected = selectRoll(acc.totalNat, natural, adv)
     if (selected) {
       acc.totalNat = selected
@@ -91,21 +87,20 @@ const rollGroup20 = (dieArr: die[], adv: adv = 'straight') => {
 
 /** Result of rolling multiple die from a hand */
 export const rollResult = (
-  collection: Map<die, die[]>,
+  diceMap: diceMap<die[]>,
   oneFromMulti = {
     adv: false,
     dis: false,
   }
 ) => {
-  // create new writable Map()
-  const writableMap: naturalCollection = new Map()
-  collection.forEach((diceGroup, key) => {
+  const writableMap: diceMap<rollMultiNat> = new Map()
+  diceMap.forEach((diceGroup, key) => {
     writableMap.set(key, key === 20
       /** Roll group of d20s */
       ? rollGroup20(diceGroup, whatAdv(oneFromMulti))
       /** Roll group of damage die */
       : rollGroup(diceGroup)
-    )
+      )
   })
   return writableMap
 }

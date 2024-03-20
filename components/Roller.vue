@@ -39,14 +39,15 @@
 <script lang="ts" setup>
   import type {
     die,
-    naturalCollection,
+    rollMultiNat,
+    diceMap,
   } from '~~/types'
   import { rollResult } from '~/utils/index'
 
   const emit = defineEmits(['firstRoll'])
 
   /** Last roll grouped by dice type */
-  const useLastRoll = useState<naturalCollection>('lastRoll')
+  const useLastRoll = useState<diceMap<rollMultiNat>>('lastRoll')
 
   /** Pull of all possible dice */
   const diceArr: Set<die> = new Set([4, 6, 8, 10, 12, 20])

@@ -31,7 +31,5 @@ export interface rollMultiDirty extends rollMultiNat {
   totalDirty: number
 }
 
-// TODO: declare generic
-export type naturalCollection = Map<die, rollMultiNat>
-
-export type dirtyCollection = Map<die, rollMultiDirty>
+/** Map of dice group */
+export type diceMap<T> = Map<die, T>
