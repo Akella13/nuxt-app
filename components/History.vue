@@ -15,9 +15,9 @@
             <Vector :dice="dice"
               :value="roll.natural" 
             />
-            <!-- <b v-if="roll.critical">
+            <b v-if="roll.critical">
               Critical {{ roll.critical }}!
-            </b> -->
+            </b>
           </li>
         </ul>
         <p>

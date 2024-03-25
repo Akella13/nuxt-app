@@ -3,6 +3,7 @@ import type {
   die,
   rollMultiNat,
   diceMap,
+  crit,
 } from '~~/types'
 
 /** Modifier of a characteristic stat */
@@ -32,12 +33,11 @@ const selectRoll = (
   next: number,
   adv: adv = 'straight'
 ): number | void => {
-  if (adv === 'adv') {
-    return Math.max(prev, next)
-  } else if (adv === 'dis') {
-    return Math.min(prev, next)
+  switch (adv) {
+    case 'adv': return Math.max(prev, next)
+    case 'dis': return Math.min(prev, next)
+    default: return
   }
-  return
 }
 
 /** Result of rolling multiple die */
@@ -60,14 +60,8 @@ const rollGroup = (dieArr: die[]) => {
 /** Result of rolling multiple die */
 const rollGroup20 = (dieArr: die[], adv: adv = 'straight') => {
   return dieArr.reduce((acc: rollMultiNat, val: die) => {
-    /** Natural result of a single roll */
     const natural = rollDie(val)
-    /** Critical result of a single d20 roll */
-    if (natural === 1) {
-      acc.critical = 'fail'
-    } else if (natural === 20) {
-      acc.critical = 'success'
-    }
+    const critical = critRoll(natural)
     const selected = selectRoll(acc.totalNat, natural, adv)
     if (selected) {
       acc.totalNat = selected
@@ -75,7 +69,10 @@ const rollGroup20 = (dieArr: die[], adv: adv = 'straight') => {
       acc.totalNat += natural
     }
     // add dice to group
-    acc.rolls.push({ natural })
+    acc.rolls.push({ 
+      natural,
+      ...(critical && { critical }),
+     })
     return acc
   }, {
     /** Sum of natural rolls by hand */
@@ -103,4 +100,13 @@ export const rollResult = (
       )
   })
   return writableMap
+}
+
+/** Critical result of a single d20 roll */
+const critRoll = (natural: number): crit | undefined => {
+  switch (natural) {
+    case 1: return 'fail'
+    case 20: return 'success'
+    default: return
+  }
 }
