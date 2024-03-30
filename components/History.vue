@@ -79,7 +79,6 @@
     adv,
   } from '~~/types'
   import Sprite from '~~/assets/icons/Die.svg'
-  import Vector from '~~/components/Vector.vue'
 
   /** Last roll object */
   const useLastRoll = useState<diceMap<rollMultiNat>>('lastRoll')
@@ -112,9 +111,9 @@
   /** Render value of advantage message */
   const AdvRender = (adv: adv) => {
     switch (adv) {
-      case 'adv':
+      case advBook.adv:
         return 'Roll with advantage:'
-      case 'dis':
+      case advBook.dis:
         return 'Roll with disadvantage:'
       default:
         return 'Straight roll:'

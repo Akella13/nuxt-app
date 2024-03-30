@@ -18,24 +18,24 @@ const whatAdv = ({
   dis = false,
 }): adv => {
   if (adv && dis) {
-    return 'straight'
+    return advBook.straight
   } else if (adv) {
-    return 'adv'
+    return advBook.adv
   } else if (dis) {
-    return 'dis'
+    return advBook.dis
   }
-  return 'straight'
+  return advBook.straight
 }
 
 /** Select one roll from multiple within one dice type */
 const selectRoll = (
   prev: number,
   next: number,
-  adv: adv = 'straight'
+  adv: adv = advBook.straight
 ): number | void => {
   switch (adv) {
-    case 'adv': return Math.max(prev, next)
-    case 'dis': return Math.min(prev, next)
+    case advBook.adv: return Math.max(prev, next)
+    case advBook.dis: return Math.min(prev, next)
     default: return
   }
 }
@@ -58,7 +58,10 @@ const rollGroup = (dieArr: die[]) => {
   })
 }
 /** Result of rolling multiple die */
-const rollGroup20 = (dieArr: die[], adv: adv = 'straight') => {
+const rollGroup20 = (
+  dieArr: die[],
+  adv: adv = advBook.straight
+) => {
   return dieArr.reduce((acc: rollMultiNat, val: die) => {
     const natural = rollDie(val)
     const critical = critRoll(natural)
@@ -105,10 +108,10 @@ export const rollResult = (
 }
 
 /** Critical result of a single d20 roll */
-const critRoll = (natural: number): crit | undefined => {
+const critRoll = (natural: number): crit | void => {
   switch (natural) {
-    case 1: return 'fail'
-    case 20: return 'success'
+    case 1: return critBook.fail
+    case 20: return critBook.success
     default: return
   }
 }

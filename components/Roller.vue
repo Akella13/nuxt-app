@@ -3,7 +3,7 @@
     <h3>Choose your dice:</h3>
 
     <ul>
-      <li v-for="dice in diceArr">
+      <li v-for="dice in diceSet">
         <button @click="AddDice(dice)">
           d{{ dice }}
         </button>
@@ -14,11 +14,17 @@
       <h4>With this roll, do you have</h4>
       <label>
         Advantage
-        <input type="checkbox" v-model="oneFromMulti.adv" value="adv">
+        <input type="checkbox"
+          v-model="oneFromMulti.adv"
+          :value="advBook.adv"
+        >
       </label>
       <label>
         Disadvantage
-        <input type="checkbox" v-model="oneFromMulti.dis" value="dis">
+        <input type="checkbox"
+          v-model="oneFromMulti.dis"
+          :value="advBook.dis"
+        >
       </label>
     </div>
 
@@ -42,7 +48,6 @@
     rollMultiNat,
     diceMap,
   } from '~~/types'
-  import { rollResult } from '~/utils/index'
 
   const emit = defineEmits(['firstRoll'])
 
@@ -50,7 +55,7 @@
   const useLastRoll = useState<diceMap<rollMultiNat>>('lastRoll')
 
   /** Pull of all possible dice */
-  const diceArr: Set<die> = new Set([4, 6, 8, 10, 12, 20])
+  const diceSet = new Set(diceArr)
 	/** All die picked by hand by descending order */
   const hand = ref<die[]>([])
   /** Hand die grouped by descending order */

@@ -1,11 +1,11 @@
-/** Kinds of resulting dice of multiple rolls */
-export type adv = 'adv' | 'dis' | 'straight'
-
 /** Number of sides on a dice */
-export type die = 4 | 6 | 8 | 10 | 12 | 20
+export type die = typeof diceArr[number]
+
+/** Kinds of resulting dice of multiple rolls */
+export type adv = keyof typeof advBook
 
 /** Critical value */
-export type crit = 'fail' | 'success'
+export type crit = keyof typeof critBook
 
 /** Result of rolling a single dice */
 export interface roll {
