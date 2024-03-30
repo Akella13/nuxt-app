@@ -20,15 +20,14 @@
             </b>
           </li>
         </ul>
+        <p v-if="group.adv">
+          {{ AdvRender(group.adv) }}
+        </p>
         <p>
           <span>{{ group.mod >= 0 ? '+' : '' }}</span>
           <span>{{ group.mod }}</span>
           <span> = {{ group.totalDirty }}</span>
         </p>
-        <!-- <p v-if="group.d20Result && group.haveAdv">
-          {{ group.haveAdv }} on d20:
-          {{ group.d20Result }}
-        </p> -->
         </li>
       </ul>
     </div>
@@ -77,6 +76,7 @@
     rollMultiNat,
     rollMultiDirty,
     diceMap,
+    adv,
   } from '~~/types'
   import Sprite from '~~/assets/icons/Die.svg'
   import Vector from '~~/components/Vector.vue'
@@ -108,6 +108,18 @@
   },
   // triggering $watch right after component mounts
   { immediate: true })
+
+  /** Render value of advantage message */
+  const AdvRender = (adv: adv) => {
+    switch (adv) {
+      case 'adv':
+        return 'Roll with advantage:'
+      case 'dis':
+        return 'Roll with disadvantage:'
+      default:
+        return 'Straight roll:'
+    }
+  }
 </script>
 
 <style>

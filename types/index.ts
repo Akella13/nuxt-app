@@ -7,11 +7,12 @@ export type die = 4 | 6 | 8 | 10 | 12 | 20
 /** Critical value */
 export type crit = 'fail' | 'success'
 
-// TODO: flatten roll
 /** Result of rolling a single dice */
 export interface roll {
   /** Natural result of a roll */
   natural: number
+  /** Critical failure or success */
+  critical?: crit
 }
 
 /** Result of rolling multiple die */
@@ -20,8 +21,8 @@ export interface rollMultiNat {
   rolls: roll[]
   /** Total natural result */
   totalNat: number
-  /** Critical failure or success */
-  critical?: crit
+  /** Advantage type */
+  adv?: adv
 }
 /** Dirty result of rolling multiple die */
 export interface rollMultiDirty extends rollMultiNat {

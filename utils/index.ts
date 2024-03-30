@@ -79,6 +79,8 @@ const rollGroup20 = (dieArr: die[], adv: adv = 'straight') => {
     totalNat: 0,
     /** Array of roll results */
     rolls: [],
+    /** Type of advantage */
+    adv,
   })
 }
 
