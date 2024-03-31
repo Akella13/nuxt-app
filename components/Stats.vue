@@ -28,8 +28,6 @@
 </template>
 
 <script setup lang="ts">
-  import { calcMod } from '~/utils/index'
-
   // TODO: Pull stats from localStorage
   // if there are none, fetch from api
   const {

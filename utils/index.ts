@@ -7,7 +7,7 @@ import type {
 } from '~~/types'
 
 /** Modifier of a characteristic stat */
-export const calcMod = (stat: number = 0) => Math.floor((stat - 10) / 2)
+export function calcMod (stat = 0) { return Math.floor((stat - 10) / 2) }
 
 /** Random result of a die roll */
 const rollDie = (sides: die = 20) => Math.round(Math.random() * (sides - 1)) + 1
