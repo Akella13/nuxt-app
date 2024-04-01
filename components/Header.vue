@@ -11,12 +11,6 @@
           Dnd
         </NuxtLink>
       </li>
-      <li>
-        <NuxtLink to="/about">
-          About
-        </NuxtLink>
-      </li>
     </ul>
-    <slot />
   </header>
 </template>
