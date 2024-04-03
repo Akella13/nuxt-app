@@ -2,18 +2,18 @@
   <h2>Dice roller</h2>
   <fieldset>
     <legend>Select Modifier:</legend>
-    <span v-if="status === 'pending'">
+    <span v-show="stats.length === 0">
       Loading ...
     </span>
-    <ul v-else>
+    <ul>
       <li v-for="{ name, value } in stats">
         <label>
           <input type="radio"
-            :value="value"
             name="stat"
-            @change="StatSelectHandler(value)"
+            :value="value"
+            @change="mod = calcMod(value)"
           >
-          {{ value }}
+          <b>{{ value }}</b>
           {{ name }}
         </label>
       </li>
@@ -28,37 +28,8 @@
 </template>
 
 <script setup lang="ts">
-  /** Character stats pulled from localStorage */
-  const statsLocal = localStorage.getItem('stats')
-
-  /** Client-only request to api */
-  const {
-    data,
-    execute,
-    status,
-   } = useFetch('/api/stats', {
-    lazy: true,
-    server: false,
-    immediate: false,
-  })
-  
-  /** If stats are not found in localStorage => launch request */
-  if (!statsLocal) execute()
-
-  /** Render value of stats */
-  const stats = ref(statsLocal ? JSON.parse(statsLocal) : [])
-  /** Response received => assign payload both to state & localStorage */
-  watch(data, newValue => {
-    stats.value = newValue
-    localStorage.setItem('stats', JSON.stringify(newValue))
-  })
+  const stats = useLocalStorageOrApi('stats')
 
   /** Modifier selected by user */
   const mod = useState('mod', () => 0)
-
-  /** Stat selecting by user */
-  const StatSelectHandler = (x: number) => {
-    // change mod depending on a stat
-    mod.value = calcMod(x)
-  }
 </script>
