@@ -28,7 +28,10 @@
 </template>
 
 <script setup lang="ts">
-  const stats = useLocalStorageOrApi('stats')
+  const stats = useLocalStorageOrApi<{
+    name: string,
+    value: number,
+  }[]>('stats')
 
   /** Modifier selected by user */
   const mod = useState('mod', () => 0)
