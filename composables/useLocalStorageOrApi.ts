@@ -1,16 +1,16 @@
-// TODO: types via generics
 export const useLocalStorageOrApi = <T>(endpoint: string) => {
+  // BUG: localStorage is not defined on server => ask for it only on client
   /** Data pulled from localStorage */
   const dataLocalStored = localStorage.getItem(endpoint)
 
   if (dataLocalStored) {
-    return ref(JSON.parse(dataLocalStored)) as Ref<T>
+    return ref<T>(JSON.parse(dataLocalStored))
   }
 
   /** Client-only api request for data */
   const { data } = useFetch(`/api/${endpoint}`, {
     server: false,
-    default: () => [],
+    default: () => [] as T,
     onResponse: ({ response }) => {
       if (response.ok) {
         localStorage.setItem(endpoint, JSON.stringify(response._data))
@@ -18,5 +18,5 @@ export const useLocalStorageOrApi = <T>(endpoint: string) => {
     },
   })
 
-  return data as Ref<T>
+  return data
 }
