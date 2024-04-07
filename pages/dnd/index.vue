@@ -1,6 +1,12 @@
 <template>
   <section>
-    <Stats />
+    <h2>Dice roller</h2>
+
+    <ClientOnly fallback-tag="span"
+      fallback="Loading stats..."
+    >
+      <Stats />
+    </ClientOnly>
 
     <Roller @first-roll.once="historyVisible = true" />
 

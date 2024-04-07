@@ -1,9 +1,8 @@
 <template>
-  <h2>Dice roller</h2>
   <fieldset>
     <legend>Select Modifier:</legend>
     <span v-show="stats.length === 0">
-      Loading ...
+      Fetching stats ...
     </span>
     <ul>
       <li v-for="{ name, value } in stats">

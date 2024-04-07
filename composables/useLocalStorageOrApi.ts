@@ -1,5 +1,4 @@
 export const useLocalStorageOrApi = <T>(endpoint: string) => {
-  // BUG: localStorage is not defined on server => ask for it only on client
   /** Data pulled from localStorage */
   const dataLocalStored = localStorage.getItem(endpoint)
 
@@ -9,7 +8,6 @@ export const useLocalStorageOrApi = <T>(endpoint: string) => {
 
   /** Client-only api request for data */
   const { data } = useFetch(`/api/${endpoint}`, {
-    server: false,
     default: () => [] as T,
     onResponse: ({ response }) => {
       if (response.ok) {
