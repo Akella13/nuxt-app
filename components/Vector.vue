@@ -34,6 +34,7 @@
     &__container {
       display: inline-block;
       position: relative;
+      margin: unset;
     }
 
     &__value {

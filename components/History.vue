@@ -7,27 +7,29 @@
         <li v-for="[dice, group] in lastRoll"
           :key="dice"
         >
-        <h4>d{{ dice }}</h4>
-        <ul>
-          <li v-for="(roll, index) in group.rolls"
-            :key="index"
-          >
-            <Vector :dice="dice"
-              :value="roll.natural" 
-            />
-            <b v-if="roll.critical">
-              Critical {{ roll.critical }}!
-            </b>
-          </li>
-        </ul>
-        <p v-if="group.adv">
-          {{ AdvRender(group.adv) }}
-        </p>
-        <p>
-          <span>{{ group.mod >= 0 ? '+' : '' }}</span>
-          <span>{{ group.mod }}</span>
-          <span> = {{ group.totalDirty }}</span>
-        </p>
+          <h4>d{{ dice }}s</h4>
+          <ul class="item__container">
+            <li v-for="({ natural, critical }) in group.rolls"
+              class="item"
+            >
+              <Vector :dice="dice"
+                :value="natural" 
+              />
+              <p v-if="critical"
+                class="item__caption"
+              >
+                Critical {{ critical }}!
+              </p>
+            </li>
+          </ul>
+          <p v-if="group.adv">
+            {{ AdvRender(group.adv) }}
+          </p>
+          <p>
+            <span>{{ group.mod >= 0 ? '+' : '' }}</span>
+            <span>{{ group.mod }}</span>
+            <span> = {{ group.totalDirty }}</span>
+          </p>
         </li>
       </ul>
     </div>
@@ -121,8 +123,25 @@
   }
 </script>
 
-<style>
+<style lang="scss">
   table, th, td {
     border: 1px solid;
+  }
+
+  .item {
+    display: inline-block;
+    margin: 0 0 3em 0;
+    position: relative;
+
+    &__container {
+      padding: unset;
+    }
+
+    &__caption {
+      margin: unset;
+      position: absolute;
+      font-weight: 700;
+      text-align: center;
+    }
   }
 </style>
