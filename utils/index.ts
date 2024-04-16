@@ -4,6 +4,8 @@ import type {
   rollMultiNat,
   diceMap,
   crit,
+  dieDamage,
+  dieD20,
 } from '~~/types'
 
 /** Modifier of a characteristic stat */
@@ -13,17 +15,17 @@ export const calcMod  = (stat = 10) => Math.floor((stat - 10) / 2)
 export const rollDie = (sides: die = 20) => Math.round(Math.random() * (sides - 1)) + 1
 
 class Roll {
-  constructor(sides: die) {
+  /** Natural result of a roll */
+  natural
+
+  constructor (sides: die) {
     this.natural = rollDie(sides)
   }
-
-  natural
 }
 
-/** Result of rolling multiple die */
-const rollGroup = (dieArr: die[]) => {
-  return dieArr.reduce((acc: rollMultiNat, val: die) => {
-    /** Natural result of a single roll */
+/** Result of rolling multiple damage die */
+const rollGroup = (dieArr: dieDamage[]) => {
+  return dieArr.reduce((acc: rollMultiNat, val) => {
     const { natural } = new Roll(val)
     // add result to group totalNat
     acc.totalNat += natural
@@ -31,9 +33,7 @@ const rollGroup = (dieArr: die[]) => {
     acc.rolls.push({ natural })
     return acc
   }, {
-    /** Sum of natural rolls by hand */
     totalNat: 0,
-    /** Array of roll results */
     rolls: [],
   })
 }
@@ -48,12 +48,13 @@ const critRoll = (natural: number): crit | void => {
 }
 
 class Roll20 extends Roll {
-  constructor(sides: die) {
+  /** Critical value of a d20 roll */
+  critical
+
+  constructor (sides: dieD20) {
     super(sides)
     this.critical = critRoll(this.natural)
   }
-
-  critical
 }
 
 /** Select one roll from multiple within one dice type */
@@ -69,13 +70,16 @@ export const selectRoll = (
   }
 }
 
-/** Result of rolling multiple die */
+/** Result of rolling multiple d20s */
 const rollGroup20 = (
-  dieArr: die[],
+  dieArr: dieD20[],
   adv: adv = advBook.straight
 ) => {
-  return dieArr.reduce((acc: rollMultiNat, val: die) => {
-    const { natural, critical } = new Roll20(val)
+  return dieArr.reduce((acc: rollMultiNat, val) => {
+    const {
+      natural,
+      critical,
+    } = new Roll20(val)
     const selected = selectRoll(acc.totalNat, natural, adv)
     if (selected) {
       acc.totalNat = selected
@@ -89,11 +93,8 @@ const rollGroup20 = (
      })
     return acc
   }, {
-    /** Sum of natural rolls by hand */
     totalNat: 0,
-    /** Array of roll results */
     rolls: [],
-    /** Type of advantage */
     adv,
   })
 }
@@ -103,13 +104,9 @@ const whatAdv = ({
   adv = false,
   dis = false,
 }): adv => {
-  if (adv && dis) {
-    return advBook.straight
-  } else if (adv) {
-    return advBook.adv
-  } else if (dis) {
-    return advBook.dis
-  }
+  if (adv && dis) return advBook.straight
+  else if (adv) return advBook.adv
+  else if (dis) return advBook.dis
   return advBook.straight
 }
 
@@ -124,11 +121,9 @@ export const rollResult = (
   const writableMap: diceMap<rollMultiNat> = new Map()
   diceMap.forEach((diceGroup, key) => {
     writableMap.set(key, key === 20
-      /** Roll group of d20s */
-      ? rollGroup20(diceGroup, whatAdv(oneFromMulti))
-      /** Roll group of damage die */
-      : rollGroup(diceGroup)
-      )
+      ? rollGroup20(diceGroup as dieD20[], whatAdv(oneFromMulti))
+      : rollGroup(diceGroup as dieDamage[])
+    )
   })
   return writableMap
 }
