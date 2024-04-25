@@ -39,7 +39,7 @@ const rollGroup = (dieArr: dieDamage[]) => {
 }
 
 /** Critical result of a single d20 roll */
-const critRoll = (natural: number): crit | void => {
+export const critRoll = (natural: number): crit | void => {
   switch (natural) {
     case 1: return critBook.fail
     case 20: return critBook.success
