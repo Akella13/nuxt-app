@@ -100,7 +100,7 @@ const rollGroup20 = (
 }
 
 /** What kind of d20 roll is this */
-const whatAdv = ({
+export const whatAdv = ({
   adv = false,
   dis = false,
 }): adv => {
