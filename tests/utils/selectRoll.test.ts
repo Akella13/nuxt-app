@@ -20,6 +20,11 @@ describe('selectRoll', () => {
       .toBe(3)
   })
 
+  test('Disadvantage edge case (0, 3) => 3', () => {
+    expect(selectRoll(0, 3, 'dis'))
+      .toBe(3)
+  })
+
   test('Straight roll (2, 3) => undefined', () => {
     expect(selectRoll(2,3))
       .toBe(undefined)

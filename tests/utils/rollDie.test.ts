@@ -6,7 +6,7 @@ import {
 
 describe('rollDie', () => {
   test('rolling d20 is <= 20', () => {
-    expect(rollDie(undefined))
+    expect(rollDie())
       .toBeLessThanOrEqual(20)
   })
 

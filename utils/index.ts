@@ -24,7 +24,7 @@ class Roll {
 }
 
 /** Result of rolling multiple damage die */
-const rollGroup = (dieArr: dieDamage[]) => {
+export const rollGroup = (dieArr: dieDamage[]) => {
   return dieArr.reduce((acc: rollMultiNat, val) => {
     const { natural } = new Roll(val)
     // add result to group totalNat
@@ -63,6 +63,8 @@ export const selectRoll = (
   next: number,
   adv: adv = advBook.straight
 ): number | void => {
+  /** if first dice is 0 => always choose the other dice */
+  if (prev === 0) return next
   switch (adv) {
     case advBook.adv: return Math.max(prev, next)
     case advBook.dis: return Math.min(prev, next)
@@ -80,12 +82,8 @@ const rollGroup20 = (
       natural,
       critical,
     } = new Roll20(val)
-    const selected = selectRoll(acc.totalNat, natural, adv)
-    if (selected) {
-      acc.totalNat = selected
-    } else {
-      acc.totalNat += natural
-    }
+    acc.totalNat = selectRoll(acc.totalNat, natural, adv)
+      ?? acc.totalNat + natural
     // add dice to group
     acc.rolls.push({ 
       natural,
