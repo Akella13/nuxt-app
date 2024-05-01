@@ -1,9 +1,5 @@
 /** Number of sides on a dice */
 export type die = typeof diceArr[number]
-/** Number of sides on a damage dice */
-export type dieDamage = Exclude<die, 20>
-/** Number of sides on a d20 */
-export type dieD20 = Extract<die, 20>
 
 /** Kinds of resulting dice of multiple rolls */
 export type adv = keyof typeof advBook
