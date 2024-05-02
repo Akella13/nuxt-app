@@ -10,8 +10,8 @@ describe('rollDie', () => {
       .toBeLessThanOrEqual(20)
   })
 
-  test('rolling d4 is >= 1', () => {
+  test('rolling d4 is > 0', () => {
     expect(rollDie(4))
-      .toBeGreaterThanOrEqual(1)
+      .toBeGreaterThan(0)
   })
 })

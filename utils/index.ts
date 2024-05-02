@@ -12,15 +12,6 @@ export const calcMod  = (stat = 10) => Math.floor((stat - 10) / 2)
 /** Random result of a die roll */
 export const rollDie = (sides: die = 20) => Math.round(Math.random() * (sides - 1)) + 1
 
-/** Critical result of a single d20 roll */
-export const critRoll = (natural: number): crit | void => {
-  switch (natural) {
-    case 1: return critBook.fail
-    case 20: return critBook.success
-    default: return
-  }
-}
-
 /** Select one roll from multiple within one dice type */
 export const selectRoll = (
   prev: number,
@@ -36,6 +27,15 @@ export const selectRoll = (
   }
 }
 
+/** Critical result of a single d20 roll */
+export const critRoll = (natural: number): crit | void => {
+  switch (natural) {
+    case 1: return critBook.fail
+    case 20: return critBook.success
+    default: return
+  }
+}
+
 /** Result of rolling multiple d20s */
 const rollGroup = (
   dieArr: die[],
@@ -44,11 +44,11 @@ const rollGroup = (
   return dieArr.reduce((acc: rollMultiNat, val) => {
     /** Natural result of a roll */
     const natural = rollDie(val)
-    /** Critical value of a d20 roll */
-    const critical = val === 20 && critRoll(natural)
     /** Add result to group totalNat or select adv/dis */
     acc.totalNat = selectRoll(acc.totalNat, natural, adv)
       ?? acc.totalNat + natural
+    /** Critical value of a d20 roll */
+    const critical = val === 20 && critRoll(natural)
     // add dice to group
     acc.rolls.push({ 
       natural,
