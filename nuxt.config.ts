@@ -2,9 +2,11 @@ import svgLoader from 'vite-svg-loader'
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
+
   typescript: {
     typeCheck: 'build',
   },
+
   vite: {
     plugins: [
       svgLoader({
@@ -25,7 +27,10 @@ export default defineNuxtConfig({
       }),
     ],
   },
+
   modules: [
     '@nuxt/test-utils/module'
   ],
+
+  compatibilityDate: '2025-02-03',
 })
