@@ -39,8 +39,10 @@
     <summary>Roll log</summary>
     <table>
       <thead>
-        <th>Roll order</th>
-        <th>Roll group</th>
+        <tr>
+          <th>Roll order</th>
+          <th>Roll group</th>
+        </tr>
       </thead>
       <tbody>
         <tr v-for="(rolledHand, index) in rollHistory"
@@ -48,24 +50,28 @@
         >
           <td>{{ rollHistory.length - index }}</td>
           <td>
-            <thead>
-              <th>Dice</th>
-              <th>Naturals</th>
-              <th>Modifier</th>
-              <th>Total</th>
-            </thead>
-            <tbody>
-              <tr v-for="[dice, group] in rolledHand">
-                <td>d{{ dice }}</td>
-                <td>
-                  <tr v-for="roll in group.rolls">
-                    <td>{{ roll.natural }}</td>
-                  </tr>
-                </td>
-                <td>{{ group.mod }}</td>
-                <td>{{ group.totalDirty }}</td>
-              </tr>
-            </tbody>
+            <table>
+              <thead>
+                <tr>
+                  <th>Dice</th>
+                  <th>Naturals</th>
+                  <th>Modifier</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="[dice, group] in rolledHand">
+                  <td>d{{ dice }}</td>
+                  <td>
+                    <tr v-for="roll in group.rolls">
+                      <td>{{ roll.natural }}</td>
+                    </tr>
+                  </td>
+                  <td>{{ group.mod }}</td>
+                  <td>{{ group.totalDirty }}</td>
+                </tr>
+              </tbody>
+            </table>
           </td>
         </tr>
       </tbody>
