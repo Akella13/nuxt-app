@@ -8,6 +8,13 @@ export default defineNuxtConfig({
   },
 
   vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@use "~/assets/styles/_vars.scss" as *;'
+        }
+      }
+    },
     plugins: [
       svgLoader({
         svgoConfig: {

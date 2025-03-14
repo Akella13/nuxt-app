@@ -8,7 +8,5 @@
 </template>
 
 <script setup>
-  definePageMeta({
-    title: 'Home'
-  })
+  definePageMeta({ title: 'Home' })
 </script>

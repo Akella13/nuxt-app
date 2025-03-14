@@ -22,7 +22,7 @@ describe('example', async () => {
   // })
 
   if (isDev()) {
-    // error TS2321: Excessive stack depth comparing types
+    // BUG: error TS2321: Excessive stack depth comparing types
     // it('[dev] ensure vite client script is added', async () => {
     //   expect(await $fetch('/')).toMatch('/_nuxt/@vite/client"')
     // })

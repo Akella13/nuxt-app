@@ -15,9 +15,7 @@
 </template>
 
 <script setup lang="ts">
-  definePageMeta({
-    title: 'Dice roller'
-  })
+  definePageMeta({ title: 'Dice roller' })
 
   const historyVisible = ref(false)
 </script>

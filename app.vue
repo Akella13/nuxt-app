@@ -20,7 +20,7 @@
       : '%s',
     meta: [{
       name: 'description',
-      content: 'My Nuxt app'
+      content: 'My Nuxt app',
     }],
   })
 </script>

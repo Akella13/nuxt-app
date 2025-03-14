@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <nav class="nav">
     <ul>
       <li>
         <NuxtLink to="/">
@@ -12,5 +12,11 @@
         </NuxtLink>
       </li>
     </ul>
-  </header>
+  </nav>
 </template>
+
+<style lang="scss">
+  .nav {
+    font-size: $font-size--header;
+  }
+</style>
