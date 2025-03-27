@@ -44,8 +44,15 @@ export default defineNuxtConfig({
     ],
   },
 
+  googleFonts: {
+    families: {
+      'Cinzel Decorative': true,
+    },
+  },
+
   modules: [
-    '@nuxt/test-utils/module'
+    '@nuxt/test-utils/module',
+    '@nuxtjs/google-fonts',
   ],
 
   compatibilityDate: '2025-02-03',

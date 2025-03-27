@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h2>Dice roller</h2>
+    <h2 class="font__dnd">Dice roller</h2>
 
     <ClientOnly fallback-tag="span"
       fallback="Loading stats..."
@@ -19,3 +19,9 @@
 
   const historyVisible = ref(false)
 </script>
+
+<style lang="scss">
+  .font__dnd {
+    font-family: 'Cinzel Decorative';
+  }
+</style>
