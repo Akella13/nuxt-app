@@ -129,7 +129,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   table, th, td {
     border: 1px solid;
   }
@@ -146,7 +146,7 @@
     &__caption {
       margin: unset;
       position: absolute;
-      font-weight: 700;
+      font-weight: map-get($font-weights, "bold");
       text-align: center;
     }
   }

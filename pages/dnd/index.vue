@@ -1,6 +1,8 @@
 <template>
   <section>
-    <h2 class="font__dnd">Dice roller</h2>
+    <h2 class="font__dnd heading--small">
+      Dice roller
+    </h2>
 
     <ClientOnly fallback-tag="span"
       fallback="Loading stats..."
@@ -20,8 +22,12 @@
   const historyVisible = ref(false)
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .font__dnd {
-    font-family: 'Cinzel Decorative';
+    font-family: $font-family__dnd;
+  }
+
+  .heading--small {
+    font-size: $font-size__heading--small;
   }
 </style>

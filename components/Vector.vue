@@ -24,7 +24,7 @@
   const tweenedNumber = useTweened(valueWatcher)
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .die {
     width: 100px;
     height: 100px;
