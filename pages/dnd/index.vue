@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h2 class="font__dnd heading--small">
+    <h2 class="heading">
       Dice roller
     </h2>
 
@@ -23,11 +23,9 @@
 </script>
 
 <style lang="scss" scoped>
-  .font__dnd {
+  .heading {
     font-family: $font-family__dnd;
-  }
-
-  .heading--small {
     font-size: $font-size__heading--small;
+    color: map-get($colors, "blue");
   }
 </style>

@@ -16,6 +16,7 @@
 <style lang="scss" scoped>
   .heading {
     font-size: $font-size__heading;
+    color: map-get($colors, "red" );
 
     &--small {
       font-size: $font-size__heading--small;
