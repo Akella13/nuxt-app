@@ -26,6 +26,6 @@
   .heading {
     font-family: $font-family__dnd;
     font-size: $font-size__heading--small;
-    color: map-get($colors, "blue");
+    color: map-get($colors, "red");
   }
 </style>

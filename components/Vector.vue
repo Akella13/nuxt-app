@@ -3,8 +3,10 @@
     <svg class="die">
       <use :href="`#d${dice}`" />
     </svg> 
-    <figcaption class="die__value">
-      {{ tweenedNumber.value.toFixed(0) }}
+    <figcaption class="die__value"
+      :class="{ 'die__value--large': tweenedNumberPrinted.length > 1 }"
+    >
+      {{ tweenedNumberPrinted }}
     </figcaption>
   </figure>
 </template>
@@ -22,13 +24,16 @@
 
   /** tweened natural roll value */
   const tweenedNumber = useTweened(valueWatcher)
+
+  /** tweened natural roll integer */
+  const tweenedNumberPrinted = computed(() => tweenedNumber.value.toFixed(0))
 </script>
 
 <style lang="scss" scoped>
   .die {
     width: 100px;
     height: 100px;
-    stroke: #000;
+    stroke: map-get($colors, "blue");
     fill: none;
 
     &__container {
@@ -41,6 +46,10 @@
       position: absolute;
       left: 45%;
       top: 45%;
+
+      &--large {
+        left: 40%;
+      }
     }
   }
 </style>

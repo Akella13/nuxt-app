@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <ul>
+    <menu>
       <li>
         <NuxtLink to="/">
           Home
@@ -11,6 +11,6 @@
           Dnd
         </NuxtLink>
       </li>
-    </ul>
+    </menu>
   </nav>
 </template>
