@@ -44,6 +44,8 @@ export default defineNuxtConfig({
     ],
   },
 
+  css: ['~/assets/styles/main.scss'],
+
   googleFonts: {
     families: {
       'Cinzel Decorative': true,
