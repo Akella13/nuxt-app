@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <Header />
-    <NuxtLoadingIndicator />
-    <main>
-      <NuxtPage />
-    </main>
-    <Footer />
-  </div>
+  <Header />
+  <NuxtLoadingIndicator />
+  <main class="main">
+    <NuxtPage />
+  </main>
+  <Footer />
 </template>
 
 <script setup lang="ts">
@@ -24,4 +22,9 @@
     }],
   })
 </script>
-  
+
+<style lang="scss" scoped>
+  .main {
+    flex: 1;
+  }
+</style>

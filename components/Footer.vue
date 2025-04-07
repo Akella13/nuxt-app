@@ -1,6 +1,12 @@
 <template>
-  <header>
-    <h4>footer</h4>
+  <footer class="footer">
     <slot />
-  </header>
+  </footer>
 </template>
+
+<style lang="scss" scoped>
+  .footer {
+    padding: 1em 0;
+    background-color: map-get($colors, "blue");
+  }
+</style>

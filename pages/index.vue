@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <section>
     <h1 class="heading">
       Welcome to the homepage
     </h1>
     <Alert class="heading--small">
       This is an auto-imported component
     </Alert>
-  </div>
+  </section>
 </template>
 
 <script setup>
