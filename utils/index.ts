@@ -44,9 +44,23 @@ const rollGroup = (
   return dieArr.reduce((acc: rollMultiNat, val) => {
     /** Natural result of a roll */
     const natural = rollDie(val)
-    /** Add result to group totalNat or select adv/dis */
-    acc.totalNat = selectRoll(acc.totalNat, natural, adv)
-      ?? acc.totalNat + natural
+
+    if (typeof acc.totalNat === 'number') {
+      /** One roll selected with adv/dis */
+      const selected = selectRoll(acc.totalNat, natural, adv)
+      /** Add result to group totalNat */
+      if (selected) {
+        acc.totalNat = selected
+      } else {
+        acc.totalNat = val === 20
+          // d20 => start an array of them
+          ? [acc.totalNat, natural]
+          // damage die => add it to the heap
+          : acc.totalNat + natural
+      }
+    } else {
+      acc.totalNat.push(natural);
+    }
     /** Critical value of a d20 roll */
     const critical = val === 20 && critRoll(natural)
     // add dice to group

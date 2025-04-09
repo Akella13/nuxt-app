@@ -68,7 +68,14 @@
                     </tr>
                   </td>
                   <td>{{ group.mod }}</td>
-                  <td>{{ group.totalDirty }}</td>
+                  <td v-if="typeof group.totalDirty === 'number'">
+                    {{ group.totalDirty }}
+                  </td>
+                  <td v-else>
+                    <tr v-for="dirtyRoll in group.totalDirty">
+                      <td>{{ dirtyRoll }}</td>
+                    </tr>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -85,6 +92,7 @@
     rollMultiDirty,
     diceMap,
     adv,
+    total,
   } from '~~/types'
   import Sprite from '~~/assets/icons/Die.svg'
 
@@ -103,10 +111,16 @@
     const writableMap: diceMap<rollMultiDirty> = new Map()
     /** Roll object mutated with fields for rendering */
     newValue.forEach((group, diceType) => {
+      let totalDirty: total
+      if (typeof group.totalNat === 'number') {
+        totalDirty = group.totalNat + useMod.value
+      } else {
+        totalDirty = group.totalNat.map(x => x + useMod.value)
+      }
       writableMap.set(diceType, {
         ...group,
         mod: useMod.value,
-        totalDirty: group.totalNat + useMod.value,
+        totalDirty,
       })
     })
     // update local state lastRoll

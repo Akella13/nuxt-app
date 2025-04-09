@@ -7,6 +7,9 @@ export type adv = keyof typeof advBook
 /** Critical value */
 export type crit = keyof typeof critBook
 
+/** Total */
+export type total = number | number []
+
 /** Result of rolling a single dice */
 export interface roll {
   /** Natural result of a roll */
@@ -20,7 +23,7 @@ export interface rollMultiNat {
   /** Natural result of rolling a full hand of die */
   rolls: roll[]
   /** Total natural result */
-  totalNat: number
+  totalNat: total
   /** Advantage type */
   adv?: adv
 }
@@ -29,7 +32,7 @@ export interface rollMultiDirty extends rollMultiNat {
   /** Modifier */
   mod: number
   /** Total result with modifier */
-  totalDirty: number
+  totalDirty: total
 }
 
 /** Map of dice group */
