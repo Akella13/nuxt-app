@@ -13,3 +13,5 @@ export const critBook = {
   fail: 'fail',
   success: 'success',
 } as const
+
+export const defaultColor = '#000000'

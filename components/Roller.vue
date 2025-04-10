@@ -10,6 +10,9 @@
       </li>
     </ul>
 
+    <h4>Choose their color:</h4>
+    <input type="color" v-model="diceColor">
+
     <div>
       <h4>With this roll, do you have</h4>
       <label>
@@ -42,7 +45,7 @@
   </article>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
   import type {
     die,
     rollMultiNat,
@@ -68,6 +71,9 @@
     adv: false,
     dis: false,
   })
+
+  /** Color picked by user */
+  const diceColor = useState('diceColor', () => defaultColor)
 
   /** Roll all die picked by hand */
   const RollHand = () => {

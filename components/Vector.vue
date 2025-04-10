@@ -11,7 +11,7 @@
   </figure>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
   import type { die } from '~~/types'
 
   const props = defineProps<{
@@ -27,13 +27,15 @@
 
   /** tweened natural roll integer */
   const tweenedNumberPrinted = computed(() => tweenedNumber.value.toFixed(0))
+
+  const diceColor = useState<string>('diceColor')
 </script>
 
 <style lang="scss" scoped>
   .die {
     width: 100px;
     height: 100px;
-    stroke: map-get($colors, "blue");
+    stroke: v-bind(diceColor);
     fill: none;
 
     &__container {
