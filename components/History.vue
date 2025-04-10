@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h3>Your last roll:</h3>
+    <h3 class="heading">Your last roll:</h3>
     <Sprite style="display: none" />
     <div v-if="lastRoll">
       <ul>
         <li v-for="[dice, group] in lastRoll"
           :key="dice"
         >
-          <h4>d{{ dice }}s</h4>
+          <h4 class="heading">d{{ dice }}s</h4>
           <ul class="item__container">
             <li v-for="({ natural, critical }) in group.rolls"
               class="item"

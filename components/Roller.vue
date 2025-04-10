@@ -1,6 +1,6 @@
 <template>
   <article>
-    <h3>Choose your dice:</h3>
+    <h3 class="heading">Choose your dice:</h3>
 
     <ul>
       <li v-for="dice in diceSet">
@@ -10,11 +10,11 @@
       </li>
     </ul>
 
-    <h4>Choose their color:</h4>
+    <h4 class="heading">Choose their color:</h4>
     <input type="color" v-model="diceColor">
 
     <div>
-      <h4>With this roll, do you have</h4>
+      <h4 class="heading">With this roll, do you have</h4>
       <label>
         Advantage
         <input type="checkbox"
@@ -32,7 +32,7 @@
     </div>
 
     <div v-if="hand.length > 0">
-      <h4>Hand:</h4>
+      <h4 class="heading">Hand:</h4>
       <ul>
         <li v-for="[type, group] in handFormatted">
           {{ group.length }}d{{ type }}

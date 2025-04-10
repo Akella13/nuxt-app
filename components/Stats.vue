@@ -1,6 +1,6 @@
 <template>
   <fieldset>
-    <legend>Select Modifier:</legend>
+    <legend class="heading">Select Modifier:</legend>
     <span v-show="stats.length === 0">
       Fetching stats ...
     </span>
