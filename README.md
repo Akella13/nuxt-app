@@ -6,6 +6,7 @@
 - [Vue 3](https://vuejs.org/)
 - [Typescript](https://www.typescriptlang.org/)
 - [Vitest](https://vitest.dev/)
+- [Scss](https://sass-lang.com/)
 
 ## Setup
 
