@@ -16,15 +16,13 @@ describe('example', async () => {
     server: true
   })
 
-  // BUG: error TS2321: Excessive stack depth comparing types
-  // it('Renders Hello Nuxt', async () => {
-  //   expect(await $fetch('/')).toMatch('Welcome to the homepage')
-  // })
+  it('Renders Hello Nuxt', async () => {
+    expect(await $fetch('/')).toMatch('Welcome to the homepage')
+  })
 
   if (isDev()) {
-    // BUG: error TS2321: Excessive stack depth comparing types
-    // it('[dev] ensure vite client script is added', async () => {
-    //   expect(await $fetch('/')).toMatch('/_nuxt/@vite/client"')
-    // })
+    it('[dev] ensure vite client script is added', async () => {
+      expect(await $fetch('/')).toMatch('/_nuxt/@vite/client"')
+    })
   }
 })
