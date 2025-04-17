@@ -94,7 +94,7 @@
     adv,
     total,
   } from '~~/types'
-  import Sprite from '~~/assets/icons/Die.svg'
+  import Sprite from 'assets/icons/Die.svg'
 
   /** Last roll object */
   const useLastRoll = useState<diceMap<rollMultiNat>>('lastRoll')

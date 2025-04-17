@@ -1,3 +1,4 @@
+
 import { fileURLToPath } from 'node:url'
 import {
   describe,
@@ -17,6 +18,8 @@ describe('example', async () => {
   })
 
   it('Renders Hello Nuxt', async () => {
+    // BUG: error TS2321: Excessive stack depth comparing types
+    // @ts-ignore
     expect(await $fetch('/')).toMatch('Welcome to the homepage')
   })
 
