@@ -55,6 +55,7 @@
                 <tr>
                   <th>Dice</th>
                   <th>Naturals</th>
+                  <th>Naturals Total</th>
                   <th>Modifier</th>
                   <th>Total</th>
                 </tr>
@@ -62,20 +63,12 @@
               <tbody>
                 <tr v-for="[dice, group] in rolledHand">
                   <td>d{{ dice }}</td>
-                  <td>
-                    <tr v-for="roll in group.rolls">
-                      <td>{{ roll.natural }}</td>
-                    </tr>
-                  </td>
+                  <Cell :value="group.rolls"
+                    label="natural"
+                  />
+                  <Cell :value="group.totalNat" />
                   <td>{{ group.mod }}</td>
-                  <td v-if="typeof group.totalDirty === 'number'">
-                    {{ group.totalDirty }}
-                  </td>
-                  <td v-else>
-                    <tr v-for="dirtyRoll in group.totalDirty">
-                      <td>{{ dirtyRoll }}</td>
-                    </tr>
-                  </td>
+                  <Cell :value="group.totalDirty" />
                 </tr>
               </tbody>
             </table>
@@ -144,7 +137,7 @@
 </script>
 
 <style lang="scss" scoped>
-  table, th, td {
+  table, th {
     border: 1px solid;
   }
 

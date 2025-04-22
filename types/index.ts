@@ -37,3 +37,8 @@ export interface rollMultiDirty extends rollMultiNat {
 
 /** Map of dice group */
 export type diceMap<T> = Map<die, T>
+
+/** Index Signature */
+export interface Sign {
+  [key: string]: any;
+}
