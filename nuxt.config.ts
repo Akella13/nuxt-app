@@ -49,6 +49,8 @@ export default defineNuxtConfig({
 
   css: ['~/assets/styles/main.scss'],
 
+  // BUG: firefox warning
+  // https://github.com/FortAwesome/Font-Awesome/issues/19925
   googleFonts: {
     families: {
       'Cinzel Decorative': true,
