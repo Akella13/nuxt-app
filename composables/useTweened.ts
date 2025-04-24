@@ -1,18 +1,21 @@
 import gsap from 'gsap'
 
 /** Animated state number transition */
-export const useTweened = (watcher: ComputedRef<{ value: number }>) => {
-  /** reactive wrapper for a number to tween */
+export const useTweened = (
+  watcher: ComputedRef<{ value: number }>
+) => {
+  /** Reactive wrapper for a number to tween */
   const tweenedNumber = reactive({ value: 0 })
 
-  // $watch reactive object to change => trigger tween()
+  // $watch reactive object to change
   watch(watcher, ({ value }) => {
+    // trigger tween
     gsap.to(tweenedNumber, {
       duration: 0.5,
       value,
     })
   },
-  // invoke it immedeatly after component mounts for initial animation
+  // invoke it after component mounts for initial animation
   { immediate: true })
 
   return tweenedNumber
