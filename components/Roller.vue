@@ -77,8 +77,7 @@
 
   /** Roll all die picked by hand */
   const RollHand = () => {
-    const result = rollResult(handFormatted.value, oneFromMulti)
-    useLastRoll.value = result
+    useLastRoll.value = rollResult(handFormatted.value, oneFromMulti)
     emit('firstRoll')
   }
 

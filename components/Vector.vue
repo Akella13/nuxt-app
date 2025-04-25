@@ -11,14 +11,13 @@
       {{ tweenedNumberPrinted }}
     </figcaption>
   </figure>
-  <button @click="toggleTimeline">
+  <button @click="ToggleTimeline">
     Toggle Timeline
   </button>
 </template>
 
 <script setup lang="ts">
   import type { die } from '~~/types'
-  import gsap from 'gsap'
 
   const props = defineProps<{
     dice: die,
@@ -37,44 +36,22 @@
   const diceColor = useState<string>('diceColor')
 
   /** Ref of a container, whose elements are animated */
-  const container = ref<HTMLElement>()
+  const container = ref()
 
-  /** Animation instance */
-  let animation: gsap.core.Tween
-
-  /** Context for killing animations and for defining a scope for selector text. */
-  let context: gsap.Context
-
-  onMounted(() => {
-    context = gsap.context(({ selector }) => {
-      /** Scoped selector for container */
-      if (selector) {
-        /** Selected descendants */
-        const boxes: HTMLElement[] = selector('.js__animated')
-        animation = gsap
-          .to(boxes, {
-            rotation: 360,
-          })
-          .reverse()
-      } else {
-        throw new Error('Wrong animation context')
-      }
-    }, 
-    /** Container scope for selector */
-    container.value)
-    // trigger initial animation
-    toggleTimeline()
-  })
-
-  onUnmounted(() => {
-    // clean up all animations
-    context.revert()
-  })
+  /** Animating instance function */
+  const timeline = useAnimation(container)
 
   /** Animation toggle event */
-  const toggleTimeline = () => {
-    animation.reversed(!animation.reversed())
+  const ToggleTimeline = () => {
+    timeline().reversed(
+      !timeline().reversed()
+    )
   }
+
+  onMounted(() => {
+    // trigger initial animation
+    ToggleTimeline()
+  })
 </script>
 
 <style lang="scss" scoped>
