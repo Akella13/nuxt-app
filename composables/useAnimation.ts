@@ -1,21 +1,22 @@
 import gsap from 'gsap'
 
 // by convention, composable function names start with "use"
-export const useAnimation = (container: Ref<HTMLElement>) => {
+export const useAnimation = () => {
+  /** Context for killing animations and for defining a scope for selector text. */
+  let context: gsap.Context
+
   /** Animation instance */
   let animation: gsap.core.Tween
 
-  /** Context for killing animations and for defining a scope for selector text. */
-  let context: gsap.Context
+  /** Ref of a container, whose elements are animated */
+  const container = useTemplateRef('container')
 
   onMounted(() => {
     context = gsap.context(({ selector }) => {
       /** Scoped selector for container */
       if (selector) {
-        /** Selected descendants */
-        const boxes: HTMLElement[] = selector('.js__animated')
         animation = gsap
-          .to(boxes, {
+          .to(selector('.js__animated'), {
             rotation: 360,
           })
           .reverse()
@@ -24,7 +25,7 @@ export const useAnimation = (container: Ref<HTMLElement>) => {
       }
     }, 
     /** Container scope for selector */
-    container.value)
+    container.value as HTMLElement)
   })
 
   onUnmounted(() => {

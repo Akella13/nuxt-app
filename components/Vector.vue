@@ -11,9 +11,6 @@
       {{ tweenedNumberPrinted }}
     </figcaption>
   </figure>
-  <button @click="ToggleTimeline">
-    Toggle Timeline
-  </button>
 </template>
 
 <script setup lang="ts">
@@ -26,7 +23,7 @@
 
   /** props must be extendable => new reactive entity that will be watched for changes */
   const valueWatcher = computed(() => ({ value: props.value }))
-
+  
   /** tweened natural roll value */
   const tweenedNumber = useTweened(valueWatcher)
 
@@ -34,24 +31,6 @@
   const tweenedNumberPrinted = computed(() => tweenedNumber.value.toFixed(0))
 
   const diceColor = useState<string>('diceColor')
-
-  /** Ref of a container, whose elements are animated */
-  const container = ref()
-
-  /** Animating instance function */
-  const timeline = useAnimation(container)
-
-  /** Animation toggle event */
-  const ToggleTimeline = () => {
-    timeline().reversed(
-      !timeline().reversed()
-    )
-  }
-
-  onMounted(() => {
-    // trigger initial animation
-    ToggleTimeline()
-  })
 </script>
 
 <style lang="scss" scoped>
