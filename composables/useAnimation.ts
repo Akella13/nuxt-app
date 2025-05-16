@@ -18,8 +18,10 @@ export const useAnimation = () => {
         animation = gsap
           .to(selector('.js__animated'), {
             rotation: 360,
+            duration: 1,
+            ease: 'bounce.out',
+            immediateRender: true,
           })
-          .reverse()
       } else {
         throw new Error('Wrong animation context')
       }

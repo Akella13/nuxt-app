@@ -13,12 +13,13 @@ export const useTweened = (
   // $watch reactive object to change
   watch(watcher, async ({ value }) => {
     // trigger tween
-    gsap.to(tweenedNumber, { value })
+    gsap.to(tweenedNumber, {
+      value,
+      duration: 1,
+    })
     // wait for DOM update
     await nextTick()
-    animation().reversed(
-      !animation().reversed()
-    )
+    animation().restart()
   },
   // invoke it after component mounts for initial animation
   { immediate: true })
