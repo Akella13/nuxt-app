@@ -1,6 +1,17 @@
 # My Nuxt App
 
+Simple d&d companion [app](akella13.github.io/nuxt-app/).
+
 ## Features
+
+- **Ability calculator**\
+  They are editable and modifier will be calculated for you.
+- **Dice roller**\
+  Pick how many you want and roll them with modifier selected
+- **Roll history**\
+  All roll results are written in a table
+
+## Software
 
 - [Nuxt 3](https://v3.nuxtjs.org/)
 - [Vue 3](https://vuejs.org/)
