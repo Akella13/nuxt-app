@@ -8,7 +8,7 @@ export const useTweened = (
   const tweenedNumber = reactive({ value: 0 })
 
   /** Animating instance function */
-  const animation = useAnimation()
+  // const animation = useAnimation()
 
   // $watch reactive object to change
   watch(watcher, async ({ value }) => {
@@ -19,7 +19,7 @@ export const useTweened = (
     })
     // wait for DOM update
     await nextTick()
-    animation().restart()
+    // animation().restart()
   },
   // invoke it after component mounts for initial animation
   { immediate: true })

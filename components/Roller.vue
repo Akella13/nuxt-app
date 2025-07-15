@@ -51,6 +51,7 @@
     rollMultiNat,
     diceMap,
   } from '~~/types'
+  import gsap from 'gsap'
 
   const emit = defineEmits(['firstRoll'])
 
@@ -75,9 +76,18 @@
   /** Color picked by user */
   const diceColor = useState('diceColor', () => defaultColor)
 
+  let tl = gsap.timeline({
+    defaults: {
+      rotation: 360,
+      duration: 1,
+      ease: 'bounce.out',
+    },
+  })
+
   /** Roll all die picked by hand */
   const RollHand = () => {
     useLastRoll.value = rollResult(handFormatted.value, oneFromMulti)
+    tl.to(('.js__animated'), {})
     emit('firstRoll')
   }
 
