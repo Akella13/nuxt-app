@@ -87,8 +87,8 @@
   /** Roll all die picked by hand */
   const RollHand = () => {
     useLastRoll.value = rollResult(handFormatted.value, oneFromMulti)
-    tl.to(('.js__animated'), {})
     emit('firstRoll')
+    tl.to(('.js__animated'), {}).restart()
   }
 
   /** Add dice to hand in descending order */
