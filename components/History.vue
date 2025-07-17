@@ -8,20 +8,22 @@
           :key="dice"
         >
           <h4 class="heading">d{{ dice }}s</h4>
-          <ul class="item__container">
-            <li v-for="({ natural, critical }) in group.rolls"
-              class="item"
-            >
-              <Vector :dice="dice"
-                :value="natural" 
-              />
-              <p v-if="critical"
-                class="item__caption"
+          <Timeline>
+            <ul class="item__container">
+              <li v-for="({ natural, critical }) in group.rolls"
+                class="item"
               >
-                Critical {{ critical }}!
-              </p>
-            </li>
-          </ul>
+                <Vector :dice="dice"
+                  :value="natural" 
+                />
+                <p v-if="critical"
+                  class="item__caption"
+                >
+                  Critical {{ critical }}!
+                </p>
+              </li>
+            </ul>
+          </Timeline>
           <p v-if="group.adv">
             {{ AdvRender(group.adv) }}
           </p>
