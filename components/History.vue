@@ -2,28 +2,26 @@
   <div>
     <h3 class="heading">Your last roll:</h3>
     <Sprite style="display: none" />
-    <div v-if="lastRoll">
+    <Timeline v-if="lastRoll">
       <ul>
         <li v-for="[dice, group] in lastRoll"
           :key="dice"
         >
           <h4 class="heading">d{{ dice }}s</h4>
-          <Timeline>
-            <ul class="item__container">
-              <li v-for="({ natural, critical }) in group.rolls"
-                class="item"
+          <ul class="item__container">
+            <li v-for="({ natural, critical }) in group.rolls"
+              class="item"
+            >
+              <Vector :dice="dice"
+                :value="natural" 
+              />
+              <p v-if="critical"
+                class="item__caption"
               >
-                <Vector :dice="dice"
-                  :value="natural" 
-                />
-                <p v-if="critical"
-                  class="item__caption"
-                >
-                  Critical {{ critical }}!
-                </p>
-              </li>
-            </ul>
-          </Timeline>
+                Critical {{ critical }}!
+              </p>
+            </li>
+          </ul>
           <p v-if="group.adv">
             {{ AdvRender(group.adv) }}
           </p>
@@ -34,7 +32,7 @@
           </p>
         </li>
       </ul>
-    </div>
+    </Timeline>
   </div>
   
   <details>

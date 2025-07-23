@@ -30,9 +30,18 @@
   })
 
   onMounted(() => {
-    context = gsap.context(({ selector }) => {
+    context = gsap.context(self => {
+      /** Elements to be animated in a timeline */
+      const collectElements = (): HTMLCollection => self.selector?.('.js__animated')
       // if selector() is defined => animate timeline
-      timeline.to(selector?.('.js__animated'), {})
+      timeline.to(collectElements(), {})
+      // declare an event for context
+      self.add('addAnimations', async () => {
+        // await render of new dom elements
+        await nextTick()
+        // add them to context
+        timeline.to(collectElements(), {}, '<')
+      })
       /** Container scope for selector */
     }, container.value)
   })
@@ -43,7 +52,9 @@
   })
 
   watch(useLastRoll, () => {
-    // BUG: freshly added dice of the same type are not animated
+    // add new animations to context
+    context.addAnimations()
+    // play all animations
     timeline.restart()
   })
 
