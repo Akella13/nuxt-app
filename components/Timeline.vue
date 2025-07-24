@@ -26,22 +26,24 @@
       rotation: 360,
       duration: 1,
       ease: 'bounce.out',
+      stagger: 0.1,
     },
   })
 
   onMounted(() => {
     // Set context for all animations
     context = gsap.context(self => {
-      /** Elements to be animated in a timeline */
-      const collectElements = (): HTMLCollection => self.selector?.('.js__animated')
-      // animate timeline
-      timeline.to(collectElements(), {})
+      /** Trigger animation of the timeline */
+      const animate = () => {
+        timeline.to(self.selector?.('.js__animated'), {}, '<')
+      }
+      animate()
       // declare an event for context
       self.add('addAnimations', async () => {
         // await render of new dom elements
         await nextTick()
         // add them to context
-        timeline.to(collectElements(), {}, '<')
+        animate()
       })
       /** Container scope for selector */
     }, container.value)
