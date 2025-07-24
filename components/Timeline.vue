@@ -1,7 +1,7 @@
 <template>
-  <div ref="container">
+  <section ref="container">
     <slot />
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -30,10 +30,11 @@
   })
 
   onMounted(() => {
+    // Set context for all animations
     context = gsap.context(self => {
       /** Elements to be animated in a timeline */
       const collectElements = (): HTMLCollection => self.selector?.('.js__animated')
-      // if selector() is defined => animate timeline
+      // animate timeline
       timeline.to(collectElements(), {})
       // declare an event for context
       self.add('addAnimations', async () => {
