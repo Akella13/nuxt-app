@@ -2,7 +2,9 @@
   <figure ref="container"
     class="die__container"
   >
-    <svg class="die js__animated">
+    <svg class="die"
+      :class="animationClass"
+    >
       <use :href="`#d${dice}`" />
     </svg> 
     <figcaption class="die__value"
@@ -19,6 +21,7 @@
   const props = defineProps<{
     dice: die,
     value: number,
+    animationClass: string,
   }>()
 
   /** props must be extendable => new reactive entity that will be watched for changes */

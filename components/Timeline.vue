@@ -1,6 +1,6 @@
 <template>
   <section ref="container">
-    <slot />
+    <slot animation-class="js__animated" />
   </section>
 </template>
 
