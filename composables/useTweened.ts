@@ -12,7 +12,7 @@ export const useTweened = (
     // trigger tween
     gsap.to(tweenedNumber, {
       value,
-      duration: 1,
+      ...animationConfig,
     })
   },
   // invoke it after component mounts for initial animation

@@ -1,6 +1,6 @@
 <template>
   <section ref="container">
-    <slot animation-class="js__animated" />
+    <slot :animation-class="animationClass" />
   </section>
 </template>
 
@@ -14,6 +14,8 @@
   /** Last roll object */
   const useLastRoll = useState<diceMap<rollMultiNat>>('lastRoll')
 
+  const animationClass = 'js__animated'
+
   /** Ref of a container, whose elements are animated */
   const container = ref<HTMLElement>()
 
@@ -23,10 +25,8 @@
   /** Animation timeline config */
   const timeline = gsap.timeline({
     defaults: {
+      ...animationConfig,
       rotation: 360,
-      duration: 1,
-      ease: 'bounce.out',
-      stagger: 0.1,
     },
   })
 
@@ -35,7 +35,7 @@
     context = gsap.context(self => {
       /** Trigger animation of the timeline */
       const animate = () => {
-        timeline.to(self.selector?.('.js__animated'), {}, '<')
+        timeline.to(self.selector?.(`.${animationClass}`), {}, '<')
       }
       animate()
       // declare an event for context
