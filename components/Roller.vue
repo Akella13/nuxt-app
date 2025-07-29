@@ -34,8 +34,8 @@
     <div v-if="hand.length > 0">
       <h4 class="heading">Hand:</h4>
       <ul>
-        <li v-for="[type, group] in handFormatted">
-          {{ group.length }}d{{ type }}
+        <li v-for="[type, { length }] in handFormatted">
+          {{ length }}d{{ type }}
         </li>
       </ul>
       <button @click="RollHand">Roll it!</button>
@@ -79,7 +79,7 @@
   const RollHand = () => {
     useLastRoll.value = rollResult(handFormatted.value, oneFromMulti)
     emit('firstRoll')
-  }
+}
 
   /** Add dice to hand in descending order */
 	const AddDice = (dice: die) => {

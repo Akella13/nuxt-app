@@ -15,3 +15,9 @@ export const critBook = {
 } as const
 
 export const defaultColor = '#000000'
+
+export const animationConfig = {
+  duration: 1,
+  ease: 'bounce.out',
+  stagger: 0.1,
+} as const

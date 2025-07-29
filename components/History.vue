@@ -2,7 +2,9 @@
   <div>
     <h3 class="heading">Your last roll:</h3>
     <Sprite style="display: none" />
-    <div v-if="lastRoll">
+    <Timeline v-if="lastRoll"
+      v-slot="{ animationClass }"
+    >
       <ul>
         <li v-for="[dice, group] in lastRoll"
           :key="dice"
@@ -13,7 +15,8 @@
               class="item"
             >
               <Vector :dice="dice"
-                :value="natural" 
+                :value="natural"
+                :animation-class="animationClass"
               />
               <p v-if="critical"
                 class="item__caption"
@@ -32,7 +35,7 @@
           </p>
         </li>
       </ul>
-    </div>
+    </Timeline>
   </div>
   
   <details>
