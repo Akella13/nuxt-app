@@ -50,10 +50,12 @@
 </template>
 
 <script setup lang="ts">
+  const key = 'stats'
+
   const stats = useLocalStorageOrApi<{
     name: string,
     value: number,
-  }[]>('stats')
+  }[]>(key, statsDefault)
 
   /** Modifier selected by user */
   const mod = useState('mod', () => 0)
@@ -68,7 +70,7 @@
 
   /** Save current value of stats to localStorage */
   const SaveStats = () => {
-    localStorage.setItem('stats', JSON.stringify(stats.value))
+    localStorage.setItem(key, JSON.stringify(stats.value))
     ResetMod()
     statsEditable.value = false
   }
