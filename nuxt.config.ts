@@ -9,10 +9,17 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      link: [{
-        rel: 'stylesheet',
-        href: 'https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css',
-      }]
+      link: [
+        {
+          rel: 'icon',
+          type: 'image/x-icon',
+          href: '/favicon.ico',
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css',
+        },
+      ],
     },
     rootAttrs: {
       class: 'root',
