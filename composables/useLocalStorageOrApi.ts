@@ -1,18 +1,19 @@
-export const useLocalStorageOrApi = <T>(endpoint: string) => {
+export const useLocalStorageOrApi = <T>(
+  endpoint = '',
+  fallback: T | [] = [],
+) => {
   /** Data pulled from localStorage */
   const dataLocalStored = localStorage.getItem(endpoint)
 
-  if (dataLocalStored) {
+  if (dataLocalStored)
     return ref<T>(JSON.parse(dataLocalStored))
-  }
 
-  /** Client-only api request for data */
+  /** Api request for data */
   const { data } = useFetch(`/api/${endpoint}`, {
-    default: () => [] as T,
+    default: () => fallback,
     onResponse: ({ response }) => {
-      if (response.ok) {
+      if (response.ok) 
         localStorage.setItem(endpoint, JSON.stringify(response._data))
-      }
     },
   })
 
