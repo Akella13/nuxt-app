@@ -18,6 +18,7 @@ Simple d&d companion [app](akella13.github.io/nuxt-app/)
 - [Typescript](https://www.typescriptlang.org/)
 - [Vitest](https://vitest.dev/)
 - [Scss](https://sass-lang.com/)
+- [GSAP](https://www.gsap.com/)
 
 ## Setup
 
